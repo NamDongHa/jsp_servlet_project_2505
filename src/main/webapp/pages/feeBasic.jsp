@@ -1,25 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="ko">
 <%@ include file="../admin/header.jsp" %>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+<%@ include file="../admin/sidebar.jsp" %>
 
-    <%@ include file="../admin/sidebar.jsp" %>
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <h2><i class="fas fa-coins"></i> 💰 기본 요금 설정</h2>
+        </div>
+    </section>
 
-    <div class="content-wrapper">
-        <section class="content">
-            <div class="container-fluid">
-                <h2>💰 기본 요금 설정</h2>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">기본 요금 설정</h3>
+                </div>
                 <form action="FeeBasicServlet" method="post">
-                    1시간 기본 요금: <input type="number" name="baseFee" value="2000" /> 원<br />
-                    <input type="submit" value="저장" />
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="baseFee">1시간 기본 요금</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="baseFee" name="baseFee" value="2000" min="0" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">원</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">저장</button>
+                    </div>
                 </form>
             </div>
-        </section>
-    </div>
-
+        </div>
+    </section>
 </div>
+
 <%@ include file="../admin/footer.jsp" %>
-</body>
-</html>
