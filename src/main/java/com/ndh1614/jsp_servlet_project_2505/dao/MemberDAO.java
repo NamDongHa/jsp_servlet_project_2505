@@ -26,17 +26,4 @@ public class MemberDAO {
             throw new RuntimeException(e);
         }
     }
-
-    public void updateMember(String mid, String uuid) {
-        String sql = "update tbl_member set uuid = ? where mid=?";
-        try {
-            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, uuid);
-            preparedStatement.setString(2, mid);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
