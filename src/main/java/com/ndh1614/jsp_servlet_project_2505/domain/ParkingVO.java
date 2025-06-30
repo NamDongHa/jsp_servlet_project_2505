@@ -1,17 +1,15 @@
-package com.ndh1614.jsp_servlet_project_2505.dto;
+package com.ndh1614.jsp_servlet_project_2505.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
+@Getter
+@ToString
 @Builder
-@Data
 @NoArgsConstructor
-public class ParkingDTO {
+@AllArgsConstructor
+public class ParkingVO {
     private int spot; //남은 자리 개수
     private String carId; //차량번호
     private String name; //소유주
