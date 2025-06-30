@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<style>
+    body.main-page .main-footer {
+        background-color: rgba(255, 255, 255, 0.7) !important;
+        backdrop-filter: saturate(180%) blur(10px);
+    }
+</style>
 <!-- ===== 푸터 영역 ===== -->
 <footer class="main-footer">
     <strong>
@@ -7,7 +12,7 @@
     </strong> All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
         <b>버전</b> 1.0.0
-    </div>
+    </div>  
 </footer>
 
 <!-- ===== JS 영역 ===== -->

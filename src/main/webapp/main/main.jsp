@@ -31,20 +31,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 */
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
 
         .main-content {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 2;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
             text-align: center;
+            color: white;
+            width: 100%;
+            padding: 0 1rem;
         }
 
         .main-content h1 {
@@ -64,7 +64,7 @@
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed main-page">
 <div class="wrapper">
     <%@ include file="../admin/header.jsp" %>
     <%@ include file="../admin/sidebar.jsp" %>
@@ -78,11 +78,11 @@
         <!-- 🔲 Dark Overlay -->
         <div class="overlay"></div>
 
-        <!-- 🌟 Foreground Content -->
+        <!-- 🌟 Foreground Content (정중앙 배치 완료) -->
         <div class="main-content">
             <h1>스마트주차 시스템</h1>
             <p>편리하고 빠른 차량 관리 솔루션</p>
-            <a href="carIn.jsp" class="btn btn-primary">
+            <a href="../pages/carIn.jsp" class="btn btn-primary">
                 <i class="fas fa-sign-in-alt"></i> 입차 등록 바로가기
             </a>
         </div>
