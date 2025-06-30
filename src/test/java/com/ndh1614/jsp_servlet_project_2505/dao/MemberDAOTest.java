@@ -24,4 +24,13 @@ class MemberDAOTest {
         memberDAO.insertMember(memberVO);
         log.info(memberVO);
     }
+
+    @Test
+    void selectMember() {
+        String carId = "42";
+
+        MemberVO memberVO = memberDAO.selectMember(carId);
+        System.out.println(memberVO);
+
+    }
 }

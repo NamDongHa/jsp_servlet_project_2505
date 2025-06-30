@@ -1,0 +1,25 @@
+package com.ndh1614.jsp_servlet_project_2505.dao;
+
+import com.ndh1614.jsp_servlet_project_2505.domain.ParkingStatusVO;
+import lombok.extern.log4j.Log4j2;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@Log4j2
+class ParkingDAOTest {
+    ParkingDAO parkingDAO = new ParkingDAO();
+
+    @Test
+    void insertCar() {
+
+        parkingDAO.insertCar("carId");
+    }
+
+    @Test
+    void selectNowCar() {
+
+        ParkingStatusVO parkingStatusVO = parkingDAO.selectNowCar("42");
+        System.out.println(parkingStatusVO);
+    }
+}

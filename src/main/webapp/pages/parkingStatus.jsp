@@ -1,3 +1,6 @@
+<%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.ParkingStatusVO" %>
+<%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.ParkingVO" %>
+<%@ page import="com.ndh1614.jsp_servlet_project_2505.service.ParkingService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../admin/header.jsp" %>
 <%@ include file="../admin/sidebar.jsp" %>
@@ -36,70 +39,21 @@
                             <td>일반</td>
                             <td>비회원</td>
                         </tr>
+                        <%
+                            int num = 1;
+                            for (int i = 0; i < 10; i++) {
+                                ParkingService parkingService = ParkingService.INSTANCE;
+                                %>
                         <tr>
-                            <td>1</td>
-                            <td>34나7890</td>
+                            <td><%=num++%></td>
+                            <td>dd</td>
                             <td>2025-06-27 09:30</td>
                             <td>경차</td>
                             <td>월정액 회원</td>
                         </tr>
-                        <!-- 실제 DB 데이터 반복 출력 -->
-                        <tr>
-                            <td>1</td>
-                            <td>12가3456</td>
-                            <td>2025-06-27 10:00</td>
-                            <td>일반</td>
-                            <td>비회원</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>34나7890</td>
-                            <td>2025-06-27 09:30</td>
-                            <td>경차</td>
-                            <td>월정액 회원</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12가3456</td>
-                            <td>2025-06-27 10:00</td>
-                            <td>일반</td>
-                            <td>비회원</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>34나7890</td>
-                            <td>2025-06-27 09:30</td>
-                            <td>경차</td>
-                            <td>월정액 회원</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12가3456</td>
-                            <td>2025-06-27 10:00</td>
-                            <td>일반</td>
-                            <td>비회원</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>34나7890</td>
-                            <td>2025-06-27 09:30</td>
-                            <td>경차</td>
-                            <td>월정액 회원</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12가3456</td>
-                            <td>2025-06-27 10:00</td>
-                            <td>일반</td>
-                            <td>비회원</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>34나7890</td>
-                            <td>2025-06-27 09:30</td>
-                            <td>경차</td>
-                            <td>월정액 회원</td>
-                        </tr>
+                        <%
+                            }
+                        %>
                         </tbody>
                     </table>
                 </div>
