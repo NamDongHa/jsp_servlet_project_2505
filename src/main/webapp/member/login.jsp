@@ -16,6 +16,16 @@
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
+<%
+    if(session.getAttribute("isAuth") != null) {
+%>
+<script>
+    alert("로그인한 상태에서는 접근 불가");
+    history.back();
+</script>
+<%
+    }
+%>
 <div class="login-box">
     <!-- 로그인 박스 -->
     <div class="card card-outline card-primary">
@@ -23,12 +33,21 @@
             <a href="#" class="h1"><b>스마트주차</b> 시스템</a>
         </div>
         <div class="card-body">
+            <div class="row">
+                <%
+                    String error = request.getParameter("error");
+                    if(error != null && Integer.parseInt(error)==1){ %>
+                <h2 class='alert alert-danger'> 아이디와 비밀번호를 확인해주세요 </h2>
+                <%
+                    }
+                %>
+            </div>
             <p class="login-box-msg">로그인 후 이용해주세요</p>
 
             <!-- 로그인 폼 -->
-            <form action="../../LoginServlet" method="post">
+            <form action="../member/login_process.jsp" method="post">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="username" placeholder="아이디" required>
+                    <input type="text" class="form-control" name="carId" placeholder="아이디" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -80,6 +99,10 @@
     <!-- /.card -->
 </div>
 <!-- /.login-box -->
+<%
+    out.println("세션 ID: " + session.getId());
+    out.println("isAuth: " + session.getAttribute("isAuth"));
+%>
 
 <!-- JS -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
