@@ -19,7 +19,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="carNumber">차량번호</label>
-                            <input type="text" class="form-control" id="carNumber" name="carNumber" placeholder="예: 12가3456" required>
+                            <input type="text" class="form-control" id="carNumber" name="carNumber"
+                                   placeholder="예: 12가3456" required>
                         </div>
                         <div class="form-group">
                             <label for="driverName">운전자명</label>
@@ -27,7 +28,8 @@
                         </div>
                         <div class="form-group">
                             <label for="contact">연락처</label>
-                            <input type="text" class="form-control" id="contact" name="contact" placeholder="010-0000-0000">
+                            <input type="text" class="form-control" id="contact" name="contact"
+                                   placeholder="010-0000-0000">
                         </div>
                         <div class="form-group">
                             <label for="carType">차량 유형</label>
@@ -50,5 +52,5 @@
         </div>
     </section>
 </div>
-
 <%@ include file="../admin/footer.jsp" %>
+
