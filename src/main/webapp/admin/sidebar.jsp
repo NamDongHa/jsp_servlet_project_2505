@@ -113,23 +113,6 @@
                         </li>
                     </ul>
                 </li>
-
-                <!-- 📦 시스템 관리 -->
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>시스템 관리<i class="right fas fa-angle-left"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview pl-3">
-                        <li class="nav-item">
-                            <a href="../pages/setting.jsp" class="nav-link">
-                                <i class="fas fa-tools nav-icon"></i>
-                                <p>주차장 기본 정보 설정</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
             </ul>
         </nav>
     </div>

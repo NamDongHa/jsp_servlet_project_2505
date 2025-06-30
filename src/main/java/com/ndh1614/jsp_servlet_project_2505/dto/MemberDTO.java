@@ -18,3 +18,4 @@ public class MemberDTO {
     private String type; // 일반/경차/장애인
     private boolean monthPay; //월정액
 }
+
