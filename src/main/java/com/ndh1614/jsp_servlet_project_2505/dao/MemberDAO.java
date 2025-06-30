@@ -10,31 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MemberDAO {
-//    public MemberVO findMemberWithPasswd(String carId, String password) {
-//        String sql = "select * from member where carId=? and password=?";
-//        MemberVO member = null;
-//        try {
-//            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-//            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            preparedStatement.setString(1, carId);
-//            preparedStatement.setString(2, password);
-//            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
-//            if (resultSet.next()) {
-//                member = MemberVO.builder()
-//                        .mid(resultSet.getString("mid"))
-//                        .mpw(resultSet.getString(2))
-//                        .name(resultSet.getString(3))
-//                        .uuid(resultSet.getString(4))
-//                        .build();
-//            }
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return member;
-//    }
-
-
     public void insertMember(MemberVO memberVO) {
         String sql = "insert into member (carId, name, password, phone, type, monthPay) values(? ,? ,?,?,?,?)";
         try {

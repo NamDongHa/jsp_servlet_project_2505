@@ -85,7 +85,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/login.jsp" class="nav-link" title="로그인">
+            <a href="../member/login.jsp" class="nav-link" title="로그인">
                 <i class="fas fa-user"></i>
             </a>
         </li>
