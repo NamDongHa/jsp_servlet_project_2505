@@ -7,15 +7,18 @@ import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Log4j2
 class MemberDAOTest {
- MemberDAO memberDAO = MemberDAO.getInstance();
+    MemberDAO memberDAO = MemberDAO.getInstance();
+
     @Test
     void insertMember() {
         MemberDTO memberDTO = MemberDTO.builder()
-                .carId("55")
+                .carId("44")
                 .name("ㅁㄴㅇㄹ")
                 .password("123456")
                 .phone("1888888888")
@@ -23,5 +26,14 @@ class MemberDAOTest {
                 .build();
         memberDAO.insertMember(memberDTO);
         log.info(memberDTO);
+    }
+
+    @Test
+    void getMonthPayMember() {
+        boolean month = true;
+        List<MemberDTO> members = memberDAO.selectMonthPayMembers(month);
+        for (MemberDTO m : members) {
+            log.info("{}", m);
+        }
     }
 }

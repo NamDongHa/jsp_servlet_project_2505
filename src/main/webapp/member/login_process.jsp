@@ -1,6 +1,6 @@
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO" %>
-<%@ page import="com.ndh1614.jsp_servlet_project_2505.model.MemberRepository" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -21,12 +21,14 @@
    */
   boolean isAuth =false;
   MemberDAO memberDAO = MemberDAO.getInstance();
-  MemberDTO member = memberDAO.findMemberWithPasswd(carId, password);
-  if (member !=null && member.getPassword().equals(password)){
+  MemberDTO member= memberDAO.selectMemberWithPasswd(carId, password);
+// && member.getPassword().equals(password)
+  if (member !=null){
     isAuth = true;
   }
   //3. 인증 처리 결과 (isAuth) 에 따라 처리
   if(isAuth){
+    session.setAttribute("member", member);
     session.setAttribute("isAuth", true);
     session.setAttribute("sessionCarId", carId);
     session.setAttribute("sessionMemberName", member.getName());

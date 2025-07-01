@@ -90,10 +90,6 @@
 
     <%@ include file="../admin/footer.jsp" %>
 </div>
-<%
-    out.println("세션 ID: " + session.getId());
-    out.println("isAuth: " + session.getAttribute("isAuth"));
-%>
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>

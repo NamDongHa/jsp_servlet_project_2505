@@ -18,10 +18,11 @@
 <body class="hold-transition login-page">
 <%
     if(session.getAttribute("isAuth") != null) {
+        response.sendRedirect("../member/myPage.jsp");
 %>
 <script>
-    alert("로그인한 상태에서는 접근 불가");
-    history.back();
+    // alert("로그인한 상태에서는 접근 불가");
+    // history.back();
 </script>
 <%
     }
@@ -42,8 +43,6 @@
                     }
                 %>
             </div>
-            <p class="login-box-msg">로그인 후 이용해주세요</p>
-
             <!-- 로그인 폼 -->
             <form action="../member/login_process.jsp" method="post">
                 <div class="input-group mb-3">
@@ -63,12 +62,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember" name="remember">
-                            <label for="remember">아이디 저장</label>
-                        </div>
-                    </div>
+<%--                    <div class="col-8">--%>
+<%--                        <div class="icheck-primary">--%>
+<%--                            <input type="checkbox" id="remember" name="remember">--%>
+<%--                            <label for="remember">아이디 저장</label>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary btn-block">로그인</button>
                     </div>
@@ -99,10 +98,6 @@
     <!-- /.card -->
 </div>
 <!-- /.login-box -->
-<%
-    out.println("세션 ID: " + session.getId());
-    out.println("isAuth: " + session.getAttribute("isAuth"));
-%>
 
 <!-- JS -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
