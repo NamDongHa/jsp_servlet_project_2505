@@ -16,7 +16,7 @@ public class ConnectTests {
         config.setDriverClassName("org.mariadb.jdbc.Driver");
         config.setJdbcUrl("jdbc:mariadb://localhost:3306/parking");
         config.setUsername("root");
-        config.setPassword("9644");
+        config.setPassword("6454");
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

@@ -66,15 +66,21 @@
                     </a>
                     <ul class="nav nav-treeview pl-3">
                         <li class="nav-item">
-                            <a href="../pages/feeBasic.jsp" class="nav-link">
+                            <a href="../fee/insertFeeBasic.jsp" class="nav-link">
                                 <i class="fas fa-coins nav-icon"></i>
                                 <p>기본 요금 설정</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../pages/feeExtra.jsp" class="nav-link">
+                            <a href="../fee/insertFeeExtra.jsp" class="nav-link">
                                 <i class="fas fa-plus nav-icon"></i>
                                 <p>추가 요금 설정</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../fee/fee_policy_list" class="nav-link">
+                                <i class="fas fa-plus nav-icon"></i>
+                                <p>요금 정책 목록</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -84,7 +90,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../pages/feeTest.jsp" class="nav-link">
+                            <a href="../fee/feeTest.jsp" class="nav-link">
                                 <i class="fas fa-calculator nav-icon"></i>
                                 <p>요금 계산 테스트</p>
                             </a>
