@@ -15,7 +15,7 @@
                 <div class="card-header">
                     <h3 class="card-title">추가 요금 설정</h3>
                 </div>
-                <form action="FeeExtraServlet" method="post">
+                <form action="../fee/insert" method="post">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="extraFee">30분 추가 요금</label>

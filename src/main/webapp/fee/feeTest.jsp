@@ -15,7 +15,7 @@
                 <div class="card-header">
                     <h3 class="card-title">테스트 입력</h3>
                 </div>
-                <form action="FeeTestServlet" method="get">
+                <form action="fee_result.jsp" method="get">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inTime">입차 시간</label>
