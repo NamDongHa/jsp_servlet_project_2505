@@ -5,6 +5,7 @@
         backdrop-filter: saturate(180%) blur(10px);
     }
 </style>
+
 <head>
     <meta charset="UTF-8" />
     <title>스마트주차 시스템</title>
@@ -84,16 +85,35 @@
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
+        <%
+            if(session.getAttribute("isAuth") != null) {
+        %>
+        <li class="nav-item">
+            <a href="../member/login.jsp" class="nav-link" title="회원정보수정">
+                <i class="fas fa-user-edit"></i>
+            </a>
+        </li>
+        <%
+            }else {
+            %>
         <li class="nav-item">
             <a href="../member/login.jsp" class="nav-link" title="로그인">
                 <i class="fas fa-user"></i>
             </a>
         </li>
+        <%
+            }
+            if(session.getAttribute("isAuth") != null) {
+
+        %>
         <li class="nav-item">
-            <a href="/settings.jsp" class="nav-link" title="설정">
-                <i class="fas fa-cog"></i>
+            <a href="../member/logout.jsp" class="nav-link" title="로그아웃">
+                <i class="fas fa-user-minus"></i>
             </a>
         </li>
+        <%
+            }
+        %>
     </ul>
 </nav>
 </body>

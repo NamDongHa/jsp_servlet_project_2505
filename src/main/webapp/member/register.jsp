@@ -24,9 +24,9 @@
         <div class="card-body">
             <p class="login-box-msg">회원가입을 진행해주세요</p>
 
-            <form action="../../RegisterServlet" method="post">
+            <form action="register_process.jsp" method="post">
                 <div class="input-group mb-3">
-                    <input type="text" name="carNumber" class="form-control" placeholder="차량번호 (예: 12가3456)" required>
+                    <input type="text" name="carId" class="form-control" placeholder="차량번호 (예: 12가3456)" required>
                     <div class="input-group-append">
                         <div class="input-group-text"><span class="fas fa-car"></span></div>
                     </div>
