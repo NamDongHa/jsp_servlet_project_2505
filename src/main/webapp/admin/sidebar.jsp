@@ -72,21 +72,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../fee/insertFeeExtra.jsp" class="nav-link">
-                                <i class="fas fa-plus nav-icon"></i>
-                                <p>추가 요금 설정</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="../fee/fee_policy_list" class="nav-link">
                                 <i class="fas fa-plus nav-icon"></i>
                                 <p>요금 정책 목록</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../pages/discountPolicy.jsp" class="nav-link">
-                                <i class="fas fa-ticket-alt nav-icon"></i>
-                                <p>할인 정책 설정</p>
                             </a>
                         </li>
                         <li class="nav-item">
