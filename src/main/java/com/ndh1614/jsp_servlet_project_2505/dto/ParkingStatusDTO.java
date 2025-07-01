@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ParkingStatusDTO {
-    private ParkingVO parkingDTO;
-    private MemberVO memberDTO;
+    private ParkingDTO parkingDTO;
+    private MemberDTO memberDTO;
 }
