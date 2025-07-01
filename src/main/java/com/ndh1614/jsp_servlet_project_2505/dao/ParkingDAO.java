@@ -1,4 +1,139 @@
 package com.ndh1614.jsp_servlet_project_2505.dao;
 
+import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
+import com.ndh1614.jsp_servlet_project_2505.domain.ParkingStatusVO;
+import com.ndh1614.jsp_servlet_project_2505.domain.ParkingVO;
+import lombok.Cleanup;
+import lombok.extern.log4j.Log4j2;
+
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Log4j2
 public class ParkingDAO {
+
+    // 차량 입차 등록
+    public void insertCar(String carId) {
+        String sql = "INSERT INTO parking(carId) VALUES (?) ";
+
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carId);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // 실시간 주차 현황
+    public ParkingStatusVO selectNowCar(String carId) {
+        String sql = "SELECT p.carId, p.carInTime, m.type, m.monthPay FROM parking p " +
+                "inner join member m on p.carId = m.carId WHERE m.carId = ?";
+
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carId);
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                ParkingVO parkingVO = ParkingVO.builder()
+                        .carId(resultSet.getString(1))
+                        .carInTime(resultSet.getTimestamp(2).toLocalDateTime())
+                        .build();
+
+                MemberVO memberVO = MemberVO.builder()
+                        .type(resultSet.getString(3))
+                        .monthPay(resultSet.getBoolean(4))
+                        .build();
+
+                return ParkingStatusVO.builder()
+                        .parkingVO(parkingVO)
+                        .memberVO(memberVO)
+                        .build();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    // member에 등록된 차량인지 확인 (member에 있으면 true 없으면 false)
+    public boolean existsMemberCar(String carId) {
+        String sql = "SELECT COUNT(*) FROM member WHERE carId = ?";
+
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carId);
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0; // 1개 이상이면 존재
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false; // 예외가 발생하거나 결과가 없으면 false
+    }
+
+    // 입차된 차량의 수 조회
+    public int countCurrentParkingCars() {
+        String sql = "SELECT COUNT(*) FROM parking";  // parking 테이블에 현재 입차된 차량 수 조회
+        try (
+                Connection conn = ConnectionUtil.INSTANCE.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery();
+        ) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    // 주차중인 차량의 전체 목록 조회
+    public List<ParkingStatusVO> selectAllCurrentParkingStatus() {
+        String sql = "SELECT p.carId, p.carInTime, m.type, m.monthPay " +
+                "FROM parking p INNER JOIN member m ON p.carId = m.carId";
+
+        List<ParkingStatusVO> list = new ArrayList<>();
+
+        try (
+                Connection conn = ConnectionUtil.INSTANCE.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery();
+        ) {
+            while (rs.next()) {
+                ParkingVO parkingVO = ParkingVO.builder()
+                        .carId(rs.getString("carId"))
+                        .carInTime(rs.getTimestamp("carInTime").toLocalDateTime())
+                        .build();
+
+                MemberVO memberVO = MemberVO.builder()
+                        .type(rs.getString("type"))
+                        .monthPay(rs.getBoolean("monthPay"))
+                        .build();
+
+                ParkingStatusVO parkingStatusVO = ParkingStatusVO.builder()
+                        .parkingVO(parkingVO)
+                        .memberVO(memberVO)
+                        .build();
+
+                list.add(parkingStatusVO);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+
 }

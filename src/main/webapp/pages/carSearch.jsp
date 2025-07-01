@@ -15,11 +15,11 @@
                 <div class="card-header">
                     <h3 class="card-title">차량번호로 검색</h3>
                 </div>
-                <form action="CarSearchServlet" method="get">
+                <form action="/pages/CarSearchServlet" method="get">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="carNumber">차량번호</label>
-                            <input type="text" class="form-control" id="carNumber" name="carNumber" placeholder="예: 12가3456" required>
+                            <label for="carId">차량번호</label>
+                            <input type="text" class="form-control" id="carId" name="carId" placeholder="예: 12가3456" required>
                         </div>
                     </div>
                     <div class="card-footer">

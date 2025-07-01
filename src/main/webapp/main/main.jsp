@@ -82,7 +82,7 @@
         <div class="main-content">
             <h1>스마트주차 시스템</h1>
             <p>편리하고 빠른 차량 관리 솔루션</p>
-            <a href="carIn.jsp" class="btn btn-primary">
+            <a href="/pages/carIn.jsp" class="btn btn-primary">
                 <i class="fas fa-sign-in-alt"></i> 입차 등록 바로가기
             </a>
         </div>

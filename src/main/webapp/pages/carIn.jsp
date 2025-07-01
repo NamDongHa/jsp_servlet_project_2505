@@ -15,11 +15,11 @@
                 <div class="card-header">
                     <h3 class="card-title">입차 정보 입력</h3>
                 </div>
-                <form action="CarInServlet" method="post">
+                <form action="/pages/CarInServlet" method="post">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="carNumber">차량번호</label>
-                            <input type="text" class="form-control" id="carNumber" name="carNumber"
+                            <label for="carId">차량번호</label>
+                            <input type="text" class="form-control" id="carId" name="carId"
                                    placeholder="예: 12가3456" required>
                         </div>
                         <div class="form-group">

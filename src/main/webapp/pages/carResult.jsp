@@ -1,20 +1,15 @@
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.ParkingStatusVO" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.ParkingVO" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.service.ParkingService" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.ndh1614.jsp_servlet_project_2505.dto.ParkingDTO" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dto.ParkingStatusDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../admin/header.jsp" %>
 <%@ include file="../admin/sidebar.jsp" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <h2><i class="fas fa-parking"></i> 📍 실시간 주차 현황</h2>
+            <h2><i class="fas fa-parking"></i> 🔍 차량 정보 검색 결과</h2>
         </div>
     </section>
 
@@ -22,40 +17,25 @@
         <div class="container-fluid">
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">현재 주차 차량 목록</h3>
+                    <h3 class="card-title">차량 조회 결과</h3>
                 </div>
                 <div class="card-body">
-                    <!-- 실시간 주차 차량 리스트 테이블 -->
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>주차공간번호</th>
-                            <th>차량번호</th>
+                            <th>차량 번호</th>
                             <th>입차 시간</th>
                             <th>차량 유형</th>
                             <th>월정액</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <%
-
-                            int num = 1;
-
-                            ParkingService parkingService = ParkingService.INSTANCE;
-                            List<ParkingStatusVO> parkingStatusVOList = parkingService.selectAllParkingStatus();
-
-                            for (ParkingStatusVO status : parkingStatusVOList) {
-                                %>
                         <tr>
-                            <td><%=num++%></td>
-                            <td><%= status.getParkingVO().getCarId() %></td>
-                            <td><%= status.getParkingVO().getCarInTime() %></td>
-                            <td><%= status.getMemberVO().getType() %></td>
-                            <td><%= status.getMemberVO().isMonthPay() ? "O" : "X" %></td>
+                            <td>${parkingStatusDTO.parkingDTO.carId}</td>
+                            <td>${parkingStatusDTO.parkingDTO.carInTime}</td>
+                            <td>${parkingStatusDTO.memberDTO.type}</td>
+                            <td>${parkingStatusDTO.memberDTO.monthPay == true ? "O" : "X"}</td>
                         </tr>
-                        <%
-                            }
-                        %>
                         </tbody>
                     </table>
                 </div>
