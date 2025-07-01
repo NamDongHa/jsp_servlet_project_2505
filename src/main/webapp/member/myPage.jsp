@@ -4,8 +4,9 @@
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO" %>
 <%@ page import="java.util.Objects" %>
+<%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.MemberVO" %>
 <%
-    MemberDTO member = (MemberDTO) session.getAttribute("member");
+    MemberVO member = (MemberVO) session.getAttribute("member");
 %>
 
 <div class="content-wrapper">

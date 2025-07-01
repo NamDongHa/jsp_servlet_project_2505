@@ -1,6 +1,7 @@
 package com.ndh1614.jsp_servlet_project_2505.dao;
 
 
+import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
 import com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO;
 import lombok.Cleanup;
 
@@ -23,24 +24,24 @@ public class MemberDAO {
         }
         return instance;
     }
-    public void insertMember(MemberDTO memberDTO) { //회원가입
+    public void insertMember(MemberVO memberVO) { //회원가입
         String sql = "insert into member (carId, name, password, phone, type, monthPay) values(? ,? ,?,?,?,?)";
         try {
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, memberDTO.getCarId());
-            preparedStatement.setString(2, memberDTO.getName());
-            preparedStatement.setString(3, memberDTO.getPassword());
-            preparedStatement.setString(4, memberDTO.getPhone());
-            preparedStatement.setString(5, memberDTO.getType());
-            preparedStatement.setBoolean(6, memberDTO.isMonthPay());
+            preparedStatement.setString(1, memberVO.getCarId());
+            preparedStatement.setString(2, memberVO.getName());
+            preparedStatement.setString(3, memberVO.getPassword());
+            preparedStatement.setString(4, memberVO.getPhone());
+            preparedStatement.setString(5, memberVO.getType());
+            preparedStatement.setBoolean(6, memberVO.isMonthPay());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public MemberDTO selectMemberWithPasswd(String carId, String password) {
+    public MemberVO selectMemberWithPasswd(String carId, String password) {
         String sql = "select * from member where carId = ? and password = ?";
         try {
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
@@ -49,7 +50,7 @@ public class MemberDAO {
             preparedStatement.setString(2, password);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return MemberDTO.builder()
+                return MemberVO.builder()
                         .carId(resultSet.getString("carId"))
                         .password(resultSet.getString(2))
                         .name(resultSet.getString(3))
@@ -63,17 +64,38 @@ public class MemberDAO {
             throw new RuntimeException(e);
         }
         return null;
-    }
-    public MemberDTO selectMemberById(String carId) {
+    }public MemberVO selectMember(String carId) {
         String sql = "select * from member where carId = ?";
-        MemberDTO member = null;
         try {
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, carId);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                member = MemberDTO.builder()
+                return MemberVO.builder()
+                        .carId(resultSet.getString("carId"))
+                        .password(resultSet.getString(2))
+                        .name(resultSet.getString(3))
+                        .phone(resultSet.getString(4))
+                        .type(resultSet.getString(5))
+                        .monthPay(resultSet.getBoolean(6))
+                        .build();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+    public MemberVO selectMemberById(String carId) {
+        String sql = "select * from member where carId = ?";
+        MemberVO member = null;
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carId);
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                member = MemberVO.builder()
                         .carId(resultSet.getString("carId"))
                         .password(resultSet.getString(2))
                         .name(resultSet.getString(3))
@@ -88,7 +110,7 @@ public class MemberDAO {
         }
         return member;
     }
-    public void updateMember(MemberDTO member , String oldCarId) {
+    public void updateMember(MemberVO member , String oldCarId) {
         String sql = "update member set carId = ?, password = ? , name = ? , phone = ? , " +
                 "type = ? , monthPay = ? where carId = ?";
         try {
@@ -106,17 +128,17 @@ public class MemberDAO {
             throw new RuntimeException(e);
         }
     }
-    public List<MemberDTO> selectMonthPayMembers(boolean monthPay) {
+    public List<MemberVO> selectMonthPayMembers(boolean monthPay) {
         String sql = "select * from member where monthPay = ?";
-        List<MemberDTO> members = new ArrayList<>();
-        MemberDTO member = null;
+        List<MemberVO> members = new ArrayList<>();
+        MemberVO member = null;
         try {
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setBoolean(1, monthPay);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                member = MemberDTO.builder()
+                member = MemberVO.builder()
                         .carId(resultSet.getString("carId"))
                         .password(resultSet.getString("password"))
                         .name(resultSet.getString("name"))

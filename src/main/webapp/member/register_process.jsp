@@ -6,15 +6,17 @@
 <%
   request.setCharacterEncoding("UTF-8");
 
-  MemberDTO memberDTO = new MemberDTO();
-  memberDTO.setCarId(request.getParameter("carId"));
-  memberDTO.setPassword(request.getParameter("password"));
-  memberDTO.setName(request.getParameter("name"));
-  memberDTO.setPhone(request.getParameter("phone"));
-  memberDTO.setType(request.getParameter("carType"));
+  MemberVO memberVO = MemberVO.builder()
+          .carId(request.getParameter("carId"))
+          .name(request.getParameter("name"))
+          .type(request.getParameter("carType"))
+          .phone(request.getParameter("phone"))
+          .password(request.getParameter("password"))
+          .build();
+
 
   MemberDAO dao = MemberDAO.getInstance();
-  dao.insertMember(memberDTO);
+  dao.insertMember(memberVO);
 
   response.sendRedirect("../main/main.jsp");
 %>

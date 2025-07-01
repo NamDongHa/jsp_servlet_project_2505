@@ -17,23 +17,27 @@ class MemberDAOTest {
 
     @Test
     void insertMember() {
-        MemberDTO memberDTO = MemberDTO.builder()
+        MemberVO memberVO = MemberVO.builder()
                 .carId("44")
                 .name("ㅁㄴㅇㄹ")
                 .password("123456")
                 .phone("1888888888")
                 .type("일반")
                 .build();
-        memberDAO.insertMember(memberDTO);
-        log.info(memberDTO);
+        memberDAO.insertMember(memberVO);
+        log.info(memberVO);
     }
 
     @Test
     void getMonthPayMember() {
         boolean month = true;
-        List<MemberDTO> members = memberDAO.selectMonthPayMembers(month);
-        for (MemberDTO m : members) {
+        List<MemberVO> members = memberDAO.selectMonthPayMembers(month);
+        for (MemberVO m : members) {
             log.info("{}", m);
         }
+    }
+    @Test
+    void getMemberById() {
+
     }
 }

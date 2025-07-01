@@ -1,6 +1,7 @@
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.MemberVO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,7 @@
    */
   boolean isAuth =false;
   MemberDAO memberDAO = MemberDAO.getInstance();
-  MemberDTO member= memberDAO.selectMemberWithPasswd(carId, password);
+  MemberVO member= memberDAO.selectMemberWithPasswd(carId, password);
 // && member.getPassword().equals(password)
   if (member !=null){
     isAuth = true;
