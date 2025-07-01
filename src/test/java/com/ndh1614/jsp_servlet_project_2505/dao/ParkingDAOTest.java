@@ -22,4 +22,20 @@ class ParkingDAOTest {
         ParkingStatusVO parkingStatusVO = parkingDAO.selectNowCar("42");
         System.out.println(parkingStatusVO);
     }
+
+    @Test
+    void isExistCar() {
+
+        log.info(parkingDAO.existsMemberCar("1212"));
+    }
+
+    @Test
+    void countCar() {
+        log.info(parkingDAO.countCurrentParkingCars());
+    }
+
+    @Test
+    void allCarIn() {
+        log.info(parkingDAO.selectAllCurrentParkingStatus());
+    }
 }

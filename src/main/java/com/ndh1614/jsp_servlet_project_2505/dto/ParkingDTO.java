@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Builder
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ParkingDTO {
     private String carId; //차량번호
-    private LocalDate carInTime; //입차시간
-    private LocalDate carOutTime; //출차시간
+    private LocalDateTime carInTime; //입차시간
+    private LocalDateTime carOutTime; //출차시간
     private int parkingFee; // 요금
 }
