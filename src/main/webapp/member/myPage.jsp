@@ -22,7 +22,7 @@
                 <div class="card-header">
                     <h3 class="card-title">회원 정보 수정</h3>
                 </div>
-                <form action="../member/myPage_process.jsp" method="post">
+                <form action="../member/myPage" method="post">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="carId">차량번호</label>
