@@ -64,4 +64,19 @@ public enum ParkingService {
     public List<ParkingStatusVO> selectAllParkingStatus() {
         return parkingDAO.selectAllCurrentParkingStatus();
     }
+
+    // parking에 등록된 차량인지 확인
+    public boolean carInParking(String carId) {
+        return parkingDAO.isInParking(carId);
+    }
+
+    // parking에 등록된 차량 삭제
+    public void removeCar(String carId) {
+        parkingDAO.deleteCar(carId);
+    }
+
+    // parking에 이미지 주차되어 있는지 확인
+    public boolean carInAlready(String carId) {
+        return parkingDAO.isAlreadyParked(carId);
+    }
 }

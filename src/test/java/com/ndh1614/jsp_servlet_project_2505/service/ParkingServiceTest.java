@@ -41,4 +41,14 @@ class ParkingServiceTest {
     void selectAll() {
         log.info(parkingService.selectAllParkingStatus());
     }
+
+    @Test
+    void carInParking() {
+        log.info(parkingService.carInParking("carId12"));
+    }
+
+    @Test
+    void removeCarTest() {
+        parkingService.removeCar("carId");
+    }
 }

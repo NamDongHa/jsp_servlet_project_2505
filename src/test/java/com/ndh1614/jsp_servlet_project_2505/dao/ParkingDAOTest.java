@@ -38,4 +38,14 @@ class ParkingDAOTest {
     void allCarIn() {
         log.info(parkingDAO.selectAllCurrentParkingStatus());
     }
+
+    @Test
+    void isInCarTest() {
+        log.info(parkingDAO.isInParking("carId"));
+    }
+
+    @Test
+    void isAlreadyInCarTest() {
+        log.info(parkingDAO.isInParking("44"));
+    }
 }

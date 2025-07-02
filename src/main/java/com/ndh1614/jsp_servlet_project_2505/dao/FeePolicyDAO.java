@@ -36,7 +36,7 @@ public class FeePolicyDAO {
         return policies;
     }
 
-    public boolean insertPolicy(FeePolicyVO feePolicyVO) {
+    public static boolean insertPolicy(FeePolicyVO feePolicyVO) {
         String sql = "INSERT INTO feepolicy (timeType, baseTime, baseFee, unitTime, unitFee, dailyMaxFee, discountDisabled, discountCompact) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
