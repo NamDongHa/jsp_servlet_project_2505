@@ -5,8 +5,10 @@
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO" %>
 <%@ page import="java.util.Objects" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.MemberVO" %>
+<%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.AdminVO" %>
 <%
     MemberVO member = (MemberVO) session.getAttribute("member");
+    AdminVO member2 = (AdminVO) session.getAttribute("member2");
 %>
 
 <div class="content-wrapper">
@@ -22,24 +24,27 @@
                 <div class="card-header">
                     <h3 class="card-title">회원 정보 수정</h3>
                 </div>
-                <form action="../member/myPage" method="post">
-                    <div class="card-body">
+                <form name="frmAddMember" action="../member/myPage" method="post">
+                <div class="card-body">
                         <div class="form-group">
                             <label for="carId">차량번호</label>
-                            <input type="text" class="form-control" id="carId" name="carId" value=<%=member.getCarId()%>>
+                            <input type="text" class="form-control" id="carId" name="carId" value="<%= (member != null) ? member.getCarId() : (member2 != null ? member2.getAdminId() : "") %>">
                         </div>
                         <div class="form-group">
                             <label for="password">비밀번호</label>
-                            <input type="password" class="form-control" id="password" name="password" value=<%=member.getPassword()%>>
+                            <input type="password" class="form-control" id="password" name="password" value="<%= (member != null) ? member.getPassword() : (member2 != null ? member2.getPassword() : "") %>">
                         </div>
                         <div class="form-group">
                             <label for="password2">비밀번호 확인</label>
-                            <input type="password" class="form-control" id="password2" name="password2" value=<%=member.getPassword()%>>
+                            <input type="password" class="form-control" id="password2" name="password2" value="<%= (member != null) ? member.getPassword() : (member2 != null ? member2.getPassword() : "") %>">
                         </div>
                         <div class="form-group">
                             <label for="name">이름</label>
-                            <input type="text" class="form-control" id="name" name="name" value=<%=member.getName()%>>
+                            <input type="text" class="form-control" id="name" name="name" value="<%= (member != null) ? member.getName() : (member2 != null ? member2.getName() : "") %>">
                         </div>
+                        <%
+                            if(session.getAttribute("isAdmin") == null) {
+                        %>
                         <div class="form-group">
                             <label for="phone">연락처</label>
                             <input type="text" class="form-control" id="phone" name="phone" value=<%=member.getPhone()%>>
@@ -58,6 +63,9 @@
                             <input type="checkbox" class="form-control" id="monthPay" name="monthPay"
                             <%=member.isMonthPay() ? "checked" : "" %>>
                         </div>
+                        <%
+                            }
+                        %>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">수정</button>
@@ -65,18 +73,15 @@
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             const frm = document.querySelector('form[name=frmAddMember]');
-                            const submit = document.querySelector('input[type=submit]');
-                            submit.addEventListener('click', (e) => {
-                                e.preventDefault();
+                            frm.addEventListener('submit', function (e) {
                                 if (frm.password.value !== frm.password2.value) {
-                                    alert("비밀번호가 틀렸습니다")
-                                    return;
+                                    e.preventDefault();
+                                    alert("비밀번호가 일치하지 않습니다.");
                                 }
-
-                                frm.submit();
-                            })
-                        })
+                            });
+                        });
                     </script>
+
                 </form>
             </div>
         </div>

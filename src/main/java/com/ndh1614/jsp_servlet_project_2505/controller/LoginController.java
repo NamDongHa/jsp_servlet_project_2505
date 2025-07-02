@@ -1,6 +1,8 @@
 package com.ndh1614.jsp_servlet_project_2505.controller;
 
+import com.ndh1614.jsp_servlet_project_2505.dao.AdminDAO;
 import com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO;
+import com.ndh1614.jsp_servlet_project_2505.domain.AdminVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,22 +24,24 @@ public class LoginController extends HttpServlet {
         // 파라미터 받기
         String carId = req.getParameter("carId");
         String password = req.getParameter("password");
-
+        HttpSession session = req.getSession();
         // DAO로 인증 시도
         MemberDAO memberDAO = MemberDAO.getInstance();
+        AdminDAO adminDAO = AdminDAO.getInstance();
         MemberVO member = memberDAO.selectMemberWithPasswd(carId, password);
-
+        AdminVO member2 = adminDAO.selectMemberWithPasswdInAdmin(carId, password);
         if (member != null) {
             // 인증 성공
-            HttpSession session = req.getSession();
             session.setAttribute("member", member);
             session.setAttribute("isAuth", true);
-            session.setAttribute("sessionCarId", carId);
-            session.setAttribute("sessionMemberName", member.getName());
-
-            // 메인 페이지로 리다이렉트 (msg=2 는 로그인 성공 메시지 용도인 듯)
             resp.sendRedirect(req.getContextPath() + "/main/main.jsp?msg=2");
-        } else {
+        } else if (member2 != null) {
+            session.setAttribute("isAdmin", true);
+            session.setAttribute("member2", member2);
+            session.setAttribute("isAuth", true);
+            resp.sendRedirect(req.getContextPath() + "/main/main.jsp?msg=2");
+        }
+        else {
             // 인증 실패 - 로그인 페이지로 에러코드 넘겨서 이동
             resp.sendRedirect(req.getContextPath() + "/member/login.jsp?error=1");
         }

@@ -57,7 +57,9 @@
                         </li>
                     </ul>
                 </li>
-
+<%
+    if(session.getAttribute("isAdmin") != null) {
+%>
                 <!-- 📦 요금/할인 설정 -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -113,6 +115,9 @@
                         </li>
                     </ul>
                 </li>
+                <%
+                    }
+                %>
             </ul>
         </nav>
     </div>

@@ -1,7 +1,9 @@
 package com.ndh1614.jsp_servlet_project_2505.controller;
 
 
+import com.ndh1614.jsp_servlet_project_2505.dao.AdminDAO;
 import com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO;
+import com.ndh1614.jsp_servlet_project_2505.domain.AdminVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,18 +21,31 @@ public class MyPageController extends HttpServlet {
         HttpSession session = req.getSession();
         req.setCharacterEncoding("UTF-8");
         MemberDAO memberDAO = MemberDAO.getInstance();
+        AdminDAO adminDAO = AdminDAO.getInstance();
         MemberVO memberVO = (MemberVO) session.getAttribute("member");
-        String oldCarId = memberVO.getCarId();
-        memberVO = MemberVO.builder()
-                .carId(req.getParameter("carId"))
-                .name(req.getParameter("name"))
-                .type(req.getParameter("type"))
-                .phone(req.getParameter("phone"))
-                .monthPay(req.getParameter("monthPay") != null)
-                .password(req.getParameter("password"))
-                .build();
-        memberDAO.updateMember(memberVO, oldCarId);
-        session.setAttribute("member", memberVO);
+        AdminVO adminVO = (AdminVO) session.getAttribute("member2");
+        if (memberVO != null) {
+            String oldCarId = memberVO.getCarId();
+            memberVO = MemberVO.builder()
+                    .carId(req.getParameter("carId"))
+                    .name(req.getParameter("name"))
+                    .type(req.getParameter("type"))
+                    .phone(req.getParameter("phone"))
+                    .monthPay(req.getParameter("monthPay") != null)
+                    .password(req.getParameter("password"))
+                    .build();
+            memberDAO.updateMember(memberVO, oldCarId);
+            session.setAttribute("member", memberVO);
+        } else{
+            String oldAdminId = adminVO.getAdminId();
+            adminVO = AdminVO.builder()
+                    .adminId(req.getParameter("carId"))
+                    .name(req.getParameter("name"))
+                    .password(req.getParameter("password"))
+                    .build();
+        adminDAO.updateAdmin(adminVO, oldAdminId);
+        session.setAttribute("member2", adminVO);
+        }
         resp.sendRedirect("../main/main.jsp");
     }
     @Override
