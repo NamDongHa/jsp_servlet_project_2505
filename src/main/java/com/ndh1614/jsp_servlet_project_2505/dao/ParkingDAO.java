@@ -134,17 +134,18 @@ public class ParkingDAO {
         }
         return list;
     }
+
     public List<ParkingStatusVO> selectLongTermParkingStatus() {
         List<ParkingStatusVO> list = new ArrayList<>();
 
         String sql = """
-        SELECT p.carId, p.carInTime,
-               m.type, m.monthPay
-        FROM parking p
-        LEFT JOIN member m ON p.carId = m.carId
-        WHERE TIMESTAMPDIFF(HOUR, p.carInTime, NOW()) >= 48
-        ORDER BY p.carInTime ASC
-    """;
+                    SELECT p.carId, p.carInTime,
+                           m.type, m.monthPay
+                    FROM parking p
+                    LEFT JOIN member m ON p.carId = m.carId
+                    WHERE TIMESTAMPDIFF(HOUR, p.carInTime, NOW()) >= 48
+                    ORDER BY p.carInTime ASC
+                """;
 
         try (Connection conn = ConnectionUtil.INSTANCE.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -173,6 +174,7 @@ public class ParkingDAO {
         }
         return list;
     }
+
     // parking에 등록된 차량인지 확인
     public boolean isInParking(String carId) {
         String sql = "SELECT COUNT(*) FROM parking WHERE carId = ?";
@@ -230,6 +232,25 @@ public class ParkingDAO {
         }
 
         return false;
+    }
+
+    // parking에 등록되어있는 차량의 수를 반환하는 메서드
+    public int countCarNum() {
+        String sql = "SELECT COUNT(*) FROM parking";
+        int count = 0;
+
+        try (
+                Connection conn = ConnectionUtil.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery();
+        ) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
 }

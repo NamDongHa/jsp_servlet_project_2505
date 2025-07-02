@@ -109,4 +109,9 @@ public enum ParkingService {
     public boolean carInAlready(String carId) {
         return parkingDAO.isAlreadyParked(carId);
     }
+
+    // parking에 주차되어 있는 차량의 수를 반환
+    public int countCar() {
+        return parkingDAO.countCarNum();
+    }
 }

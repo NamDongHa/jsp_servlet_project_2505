@@ -1,4 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String errorMessage = (String) request.getAttribute("errorMessage");
+    if (errorMessage != null) {
+%>
+<script>
+    alert("<%= errorMessage %>");
+</script>
+<%
+    }
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>

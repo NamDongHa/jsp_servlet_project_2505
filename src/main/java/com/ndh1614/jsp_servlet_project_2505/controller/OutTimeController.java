@@ -28,7 +28,8 @@ public class OutTimeController extends HttpServlet {
         HttpSession session = req.getSession(false);
         if (session == null || session.getAttribute("member") == null) {
             log.info("로그인되지 않은 사용자 요청");
-            resp.sendRedirect(req.getContextPath() + "/member/login.jsp");
+            req.setAttribute("errorMessage", "로그인 먼저 해주세요.");
+            req.getRequestDispatcher("/member/login.jsp").forward(req, resp);
             return;
         }
 
@@ -41,6 +42,7 @@ public class OutTimeController extends HttpServlet {
 
         // 1. 로그인한 사용자 차량인지 확인
         if (!carId.equals(sessionCarId)) {
+            req.setAttribute("errorMessage", "차량번호가 일치하지 않습니다. 다시 입력해주세요."); // 여기
             req.getRequestDispatcher("/pages/carOut.jsp").forward(req, resp);
             return;
         }

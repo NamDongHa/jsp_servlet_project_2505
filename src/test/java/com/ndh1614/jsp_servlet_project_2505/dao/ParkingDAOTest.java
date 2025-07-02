@@ -56,4 +56,9 @@ class ParkingDAOTest {
         List<ParkingStatusVO> parkingVOS = parkingDAO.selectLongTermParkingStatus();
         parkingVOS.forEach(System.out::println);
     }
+
+    @Test
+    void countCarNum() {
+        log.info(parkingDAO.countCarNum());
+    }
 }

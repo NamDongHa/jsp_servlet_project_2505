@@ -27,9 +27,10 @@ public class CarInController extends HttpServlet {
 
         // 로그인 여부 확인
         HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("member") == null) {
+        if (session == null || session.getAttribute("isAuth") == null) {
             log.info("로그인되지 않은 사용자 요청");
-            resp.sendRedirect(req.getContextPath() + "/member/login.jsp");
+            req.setAttribute("errorMessage", "로그인 먼저 해주세요.");
+            req.getRequestDispatcher("/member/login.jsp").forward(req, resp);
             return;
         }
 
@@ -47,6 +48,7 @@ public class CarInController extends HttpServlet {
         // 1. 주차장 만차 여부 확인
         int currentCount = parkingService.currentCar();
         if (currentCount >= 10) {
+            req.setAttribute("errorMessage", "주차장에 자리가 없습니다."); // 여기
             req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
             return;
         }
@@ -61,16 +63,30 @@ public class CarInController extends HttpServlet {
         );
 
         if (!isMatching) {
+            req.setAttribute("errorMessage", "차량 정보가 일치하지 않습니다."); // 여기
             req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
             return;
         }
 
         // 💡 이미 입차된 차량인지 확인
         if (parkingService.carInAlready(carId)) {
+            req.setAttribute("errorMessage", "이미 입차된 차량입니다."); // 여기
             req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
             return;
         }
 
+        if(session.getAttribute("isAdmin") != null) {
+            // 3. 입차 처리 및 상태 조회
+            parkingService.addCar(carId);  // 입차 처리
+            ParkingStatusDTO parkingStatusDTO = parkingService.getParkingStatus(carId); // 입차된 차량의 상태
+
+            req.setAttribute("parkingStatusDTO", parkingStatusDTO);
+            log.info("입차 완료 - 상태 DTO: {}", parkingStatusDTO);
+
+            // 4. 입차 결과 페이지로 이동
+            req.getRequestDispatcher("/pages/parkingStatus.jsp").forward(req, resp);
+            return;
+        }
         // 3. 입차 처리 및 상태 조회
         parkingService.addCar(carId);  // 입차 처리
         ParkingStatusDTO parkingStatusDTO = parkingService.getParkingStatus(carId); // 입차된 차량의 상태

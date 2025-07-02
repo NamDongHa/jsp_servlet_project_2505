@@ -1,14 +1,35 @@
+<%@ page import="com.ndh1614.jsp_servlet_project_2505.service.ParkingService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../admin/header.jsp" %>
 <%@ include file="../admin/sidebar.jsp" %>
+<%
+    int useSpot = ParkingService.INSTANCE.countCar();
+%>
+<%
+    String errorMessage = (String) request.getAttribute("errorMessage");
+    if (errorMessage != null) {
+%>
+<script>
+    alert("<%= errorMessage %>");
+</script>
+<%
+    }
+%>
 
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <h2><i class="fas fa-sign-in-alt"></i> 🚘 차량 입차 등록</h2>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2><i class="fas fa-sign-in-alt"></i> 🚘 차량 입차 등록</h2>
+                <div class="d-flex" style="gap: 10px;">
+                    <span class="badge badge-success" style="font-size: 1.1rem; padding: 10px 15px;">전체 10대</span>
+                    <span class="badge badge-danger" style="font-size: 1.1rem; padding: 10px 15px;">
+                    주차 가능 자리 <%= 10 - useSpot %>대
+                </span>
+                </div>
+            </div>
         </div>
     </section>
-
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary">

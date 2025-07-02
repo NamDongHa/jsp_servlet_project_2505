@@ -1,6 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../admin/header.jsp" %>
 <%@ include file="../admin/sidebar.jsp" %>
+<%
+    String errorMessage = (String) request.getAttribute("errorMessage");
+    if (errorMessage != null) {
+%>
+<script>
+    alert("<%= errorMessage %>");
+</script>
+<%
+    }
+%>
 
 <div class="content-wrapper">
     <section class="content-header">

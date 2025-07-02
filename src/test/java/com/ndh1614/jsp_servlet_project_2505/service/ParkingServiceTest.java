@@ -51,4 +51,9 @@ class ParkingServiceTest {
     void removeCarTest() {
         parkingService.removeCar("carId");
     }
+
+    @Test
+    void countCar() {
+        log.info(parkingService.countCar());
+    }
 }
