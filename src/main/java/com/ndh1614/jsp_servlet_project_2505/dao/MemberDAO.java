@@ -153,4 +153,34 @@ public class MemberDAO {
         }
         return members;
     }
+
+    // carId, name, phone, type, monthPay를 비교해서 일치하면 true를 반환하는 메서드
+    public boolean isMatchingMember(String carId, String name, String phone, String type, boolean monthPay) {
+        String sql = "SELECT COUNT(*) FROM member WHERE carId = ? AND name = ? AND phone = ? AND type = ? AND monthPay = ?";
+
+        try (
+                Connection connection = ConnectionUtil.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ) {
+            preparedStatement.setString(1, carId);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, phone);
+            preparedStatement.setString(4, type);
+            // boolean을 int 1 또는 0으로 변환해서 넣기
+            preparedStatement.setInt(5, monthPay ? 1 : 0);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }

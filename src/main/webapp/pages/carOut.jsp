@@ -15,11 +15,11 @@
                 <div class="card-header">
                     <h3 class="card-title">출차 정보 입력</h3>
                 </div>
-                <form action="CarOutServlet" method="post">
+                <form action="/pages/CarOutServlet" method="post">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="carNumber">차량번호</label>
-                            <input type="text" class="form-control" id="carNumber" name="carNumber" placeholder="예: 12가3456" required>
+                            <label for="carId">차량번호</label>
+                            <input type="text" class="form-control" id="carId" name="carId" placeholder="예: 12가3456" required>
                         </div>
                         <!-- 추후 필요 시 출차 시간 표시 등 항목 추가 가능 -->
                     </div>

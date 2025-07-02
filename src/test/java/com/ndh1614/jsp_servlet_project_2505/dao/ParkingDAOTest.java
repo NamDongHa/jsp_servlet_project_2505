@@ -1,6 +1,5 @@
 package com.ndh1614.jsp_servlet_project_2505.dao;
 
-import com.ndh1614.jsp_servlet_project_2505.domain.FeePolicyVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.ParkingStatusVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.ParkingVO;
 import lombok.extern.log4j.Log4j2;
@@ -41,6 +40,16 @@ class ParkingDAOTest {
     @Test
     void allCarIn() {
         log.info(parkingDAO.selectAllCurrentParkingStatus());
+    }
+
+    @Test
+    void isInCarTest() {
+        log.info(parkingDAO.isInParking("carId"));
+    }
+
+    @Test
+    void isAlreadyInCarTest() {
+        log.info(parkingDAO.isInParking("44"));
     }
     @Test
     void selectLongParking() {

@@ -23,25 +23,25 @@
                                    placeholder="예: 12가3456" required>
                         </div>
                         <div class="form-group">
-                            <label for="driverName">운전자명</label>
-                            <input type="text" class="form-control" id="driverName" name="driverName" required>
+                            <label for="name">운전자명</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="contact">연락처</label>
-                            <input type="text" class="form-control" id="contact" name="contact"
+                            <label for="phone">연락처</label>
+                            <input type="text" class="form-control" id="phone" name="phone"
                                    placeholder="010-0000-0000">
                         </div>
                         <div class="form-group">
-                            <label for="carType">차량 유형</label>
-                            <select class="form-control" name="carType" id="carType">
+                            <label for="type">차량 유형</label>
+                            <select class="form-control" name="type" id="type">
                                 <option value="일반">일반</option>
                                 <option value="경차">경차</option>
                                 <option value="장애인">장애인</option>
                             </select>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="isMonthly" name="isMonthly">
-                            <label class="form-check-label" for="isMonthly">월정액 회원 여부</label>
+                            <input type="checkbox" class="form-check-input" id="monthPay" name="monthPay">
+                            <label class="form-check-label" for="monthPay">월정액 회원 여부</label>
                         </div>
                     </div>
                     <div class="card-footer">

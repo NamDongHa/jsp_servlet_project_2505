@@ -38,4 +38,8 @@ public enum MemberService {
         memberDAO.updateMember(member, oldCarId);
 
     }
+
+    public boolean isRightMember(String carId, String name, String phone, String type, boolean monthPay) {
+        return memberDAO.isMatchingMember(carId, name, phone, type, monthPay);
+    }
 }

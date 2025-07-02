@@ -173,4 +173,63 @@ public class ParkingDAO {
         }
         return list;
     }
+    // parking에 등록된 차량인지 확인
+    public boolean isInParking(String carId) {
+        String sql = "SELECT COUNT(*) FROM parking WHERE carId = ?";
+
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carId);
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0; // 1개 이상이면 존재
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false; // 예외가 발생하거나 결과가 없으면 false
+    }
+
+    // parking에 등록된 차량 삭제
+    public void deleteCar(String carId) {
+        String sql = "DELETE FROM parking WHERE carId = ?";
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carId);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // parking에 이미 입차된 차량인지 확인
+    // 차량이 이미 입차되어 있는지 확인
+    public boolean isAlreadyParked(String carId) {
+        String sql = "SELECT COUNT(*) FROM parking WHERE carId = ?";
+
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carId);
+            preparedStatement.executeUpdate();
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }

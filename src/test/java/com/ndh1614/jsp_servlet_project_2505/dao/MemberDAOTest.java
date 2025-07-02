@@ -18,7 +18,7 @@ class MemberDAOTest {
     @Test
     void insertMember() {
         MemberVO memberVO = MemberVO.builder()
-                .carId("44")
+                .carId("43")
                 .name("ㅁㄴㅇㄹ")
                 .password("123456")
                 .phone("1888888888")
@@ -36,8 +36,21 @@ class MemberDAOTest {
             log.info("{}", m);
         }
     }
+
     @Test
     void getMemberById() {
+
+    }
+
+    @Test
+    void isMatchingMemberTest() {
+        String carId = "42";
+        String name = "ㅁㄴㅇㄹ";
+        String phone = "1888888888";
+        String type = "장애인";
+        boolean monthPay = true;
+
+        log.info(memberDAO.isMatchingMember(carId, name, phone, type, monthPay));
 
     }
 }
