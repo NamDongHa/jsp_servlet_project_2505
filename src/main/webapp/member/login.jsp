@@ -44,7 +44,7 @@
                 %>
             </div>
             <!-- 로그인 폼 -->
-            <form action="../member/login_process.jsp" method="post">
+            <form action="<%=request.getContextPath()%>/member/login" method="post">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" name="carId" placeholder="아이디" required>
                     <div class="input-group-append">
@@ -90,7 +90,7 @@
                 <a href="#">비밀번호를 잊으셨나요?</a>
             </p>
             <p class="mb-0">
-                <a href="register.jsp" class="text-center">회원가입</a>
+                <a href="register" class="text-center">회원가입</a>
             </p>
         </div>
         <!-- /.card-body -->

@@ -1,6 +1,5 @@
 package com.ndh1614.jsp_servlet_project_2505.domain;
 
-
 import lombok.*;
 
 @Getter
@@ -9,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdminVO {
-    private String adminId;
-    private String password;
-    private String name;
+    String adminId;
+    String password;
+    String name;
 }
