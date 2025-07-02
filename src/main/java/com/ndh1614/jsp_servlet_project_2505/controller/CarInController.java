@@ -53,6 +53,20 @@ public class CarInController extends HttpServlet {
             return;
         }
 
+        log.info("출차 요청 차량번호: {}", carId);
+
+        // 로그인된 회원 정보에서 차량번호 가져오기
+        MemberVO loginUser = (MemberVO) session.getAttribute("member");
+        String sessionCarId = loginUser.getCarId();  // 또는 loginUser.getId(), loginUser.getCarNumber() 등 실제 필드명에 맞춰 수정
+
+        // 1. 로그인한 사용자 차량인지 확인
+        if (!carId.equals(sessionCarId)) {
+            req.setAttribute("errorMessage", "차량번호가 일치하지 않습니다. 다시 입력해주세요."); // 여기
+            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+            return;
+        }
+
+
         // 2. 회원 정보 일치 여부 확인
         boolean isMatching = memberService.isRightMember(
                 carId,

@@ -219,20 +219,21 @@ public class ParkingDAO {
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, carId);
-            preparedStatement.executeUpdate();
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    int count = resultSet.getInt(1);
-                    return count > 0;
-                }
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery(); // ← 여기만 있으면 됨
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return false;
     }
+
 
     // parking에 등록되어있는 차량의 수를 반환하는 메서드
     public int countCarNum() {
