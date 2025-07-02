@@ -1,5 +1,6 @@
 package com.ndh1614.jsp_servlet_project_2505.controller;
 
+import com.ndh1614.jsp_servlet_project_2505.domain.AdminVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
 import com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO;
 import com.ndh1614.jsp_servlet_project_2505.dto.ParkingStatusDTO;
@@ -27,12 +28,14 @@ public class CarInController extends HttpServlet {
 
         // 로그인 여부 확인
         HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("member") == null) {
+        if (session == null || session.getAttribute("isAuth") == null) {
             log.info("로그인되지 않은 사용자 요청");
             resp.sendRedirect(req.getContextPath() + "/member/login.jsp");
             return;
         }
 
+        MemberVO memberVO = (MemberVO) session.getAttribute("member");
+        AdminVO adminVO = (AdminVO) session.getAttribute("member2");
         // 로그인된 회원 정보 가져오기
         // 입력값 받기
         String carId = req.getParameter("carId");
@@ -40,33 +43,49 @@ public class CarInController extends HttpServlet {
         String phone = req.getParameter("phone");
         String type = req.getParameter("type");
         boolean monthPay = req.getParameter("monthPay") != null;
+        if(session.getAttribute("isAdmin") != null) {
 
+
+            // 1. 주차장 만차 여부 확인
+            int currentCount = parkingService.currentCar();
+            if (currentCount >= 10) {
+                req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+                return;
+            }
+
+            // 2. 회원 정보 일치 여부 확인
+            boolean isMatching = memberService.isRightMember(
+                    carId,
+                    name,
+                    phone,
+                    type,
+                    monthPay
+            );
+
+            if (!isMatching) {
+                req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+                return;
+            }
+
+            // 💡 이미 입차된 차량인지 확인
+            if (parkingService.carInAlready(carId)) {
+                req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+                return;
+            }
+
+            // 3. 입차 처리 및 상태 조회
+            parkingService.addCar(carId);  // 입차 처리
+            ParkingStatusDTO parkingStatusDTO = parkingService.getParkingStatus(carId); // 입차된 차량의 상태
+
+            req.setAttribute("parkingStatusDTO", parkingStatusDTO);
+            log.info("입차 완료 - 상태 DTO: {}", parkingStatusDTO);
+
+            // 4. 입차 결과 페이지로 이동
+            req.getRequestDispatcher("/pages/parkingStatus.jsp").forward(req, resp);
+            return;
+        }
         log.info("입차 요청 차량번호: {}", carId);
-
-
-        // 1. 주차장 만차 여부 확인
-        int currentCount = parkingService.currentCar();
-        if (currentCount >= 10) {
-            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
-            return;
-        }
-
-        // 2. 회원 정보 일치 여부 확인
-        boolean isMatching = memberService.isRightMember(
-                carId,
-                name,
-                phone,
-                type,
-                monthPay
-        );
-
-        if (!isMatching) {
-            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
-            return;
-        }
-
-        // 💡 이미 입차된 차량인지 확인
-        if (parkingService.carInAlready(carId)) {
+        if(!memberVO.getCarId().equals(carId)) {
             req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
             return;
         }

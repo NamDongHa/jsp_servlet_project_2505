@@ -7,6 +7,7 @@
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.MemberVO" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.AdminVO" %>
 <%
+
     MemberVO member = (MemberVO) session.getAttribute("member");
     AdminVO member2 = (AdminVO) session.getAttribute("member2");
 %>

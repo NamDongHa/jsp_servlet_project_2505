@@ -1,5 +1,7 @@
 package com.ndh1614.jsp_servlet_project_2505.controller;
 
+import com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO;
+import com.ndh1614.jsp_servlet_project_2505.domain.AdminVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
 import com.ndh1614.jsp_servlet_project_2505.dto.ParkingStatusDTO;
 import com.ndh1614.jsp_servlet_project_2505.service.OutTimeService;
@@ -24,9 +26,10 @@ public class OutTimeController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("CarOutServlet - doPost");
 
+        MemberDAO memberDAO = MemberDAO.getInstance();
         // 로그인 여부 확인
         HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("member") == null) {
+        if (session == null || session.getAttribute("isAuth") == null) {
             log.info("로그인되지 않은 사용자 요청");
             resp.sendRedirect(req.getContextPath() + "/member/login.jsp");
             return;
@@ -35,7 +38,16 @@ public class OutTimeController extends HttpServlet {
         String carId = req.getParameter("carId");
         log.info("출차 요청 차량번호: {}", carId);
 
-        // 로그인된 회원 정보에서 차량번호 가져오기
+       if(session.getAttribute("isAdmin") != null) {
+           // 2. 출차 처리 및 상태 조회
+           outTimeService.addOutCar(carId);  // 출차 처리(outTime에 출차된 차량정보 등록)
+           parkingService.removeCar(carId); // 출차 처리(parking에 carId가 같은 차량 삭제)
+
+           // 3. 입차 결과 페이지로 이동
+           req.getRequestDispatcher("/pages/parkingStatus.jsp").forward(req, resp);
+           return;
+       }
+            // 로그인된 회원 정보에서 차량번호 가져오기
         MemberVO loginUser = (MemberVO) session.getAttribute("member");
         String sessionCarId = loginUser.getCarId();  // 또는 loginUser.getId(), loginUser.getCarNumber() 등 실제 필드명에 맞춰 수정
 
@@ -44,7 +56,6 @@ public class OutTimeController extends HttpServlet {
             req.getRequestDispatcher("/pages/carOut.jsp").forward(req, resp);
             return;
         }
-
         // 2. 출차 처리 및 상태 조회
         outTimeService.addOutCar(carId);  // 출차 처리(outTime에 출차된 차량정보 등록)
         parkingService.removeCar(carId); // 출차 처리(parking에 carId가 같은 차량 삭제)
