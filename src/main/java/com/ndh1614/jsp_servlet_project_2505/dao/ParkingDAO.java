@@ -134,6 +134,43 @@ public class ParkingDAO {
         }
         return list;
     }
+    public List<ParkingStatusVO> selectLongTermParkingStatus() {
+        List<ParkingStatusVO> list = new ArrayList<>();
 
+        String sql = """
+        SELECT p.carId, p.carInTime,
+               m.type, m.monthPay
+        FROM parking p
+        LEFT JOIN member m ON p.carId = m.carId
+        WHERE TIMESTAMPDIFF(HOUR, p.carInTime, NOW()) >= 48
+        ORDER BY p.carInTime ASC
+    """;
 
+        try (Connection conn = ConnectionUtil.INSTANCE.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                ParkingVO parkingVO = ParkingVO.builder()
+                        .carId(rs.getString("carId"))
+                        .carInTime(rs.getTimestamp("carInTime").toLocalDateTime())
+                        .build();
+
+                MemberVO memberVO = MemberVO.builder()
+                        .type(rs.getString("type"))
+                        .monthPay(rs.getBoolean("monthPay"))
+                        .build();
+
+                ParkingStatusVO statusVO = ParkingStatusVO.builder()
+                        .parkingVO(parkingVO)
+                        .memberVO(memberVO)
+                        .build();
+
+                list.add(statusVO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

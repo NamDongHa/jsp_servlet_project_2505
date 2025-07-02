@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ParkingDTO {
     private String carId; //차량번호
-    private LocalDateTime carInTime; //입차시간
-    private LocalDateTime carOutTime; //출차시간
-    private int parkingFee; // 요금
+    private int parkingMinute; // 입차 이후 경과 시간 (단위: 분)
+    private String carInTime; //입차시간
 }

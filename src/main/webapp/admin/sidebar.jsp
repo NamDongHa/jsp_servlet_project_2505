@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../pages/longParking.jsp" class="nav-link">
+                            <a href="../pages/longParking" class="nav-link">
                                 <i class="fas fa-clock nav-icon"></i>
                                 <p>장기 주차 차량 조회</p>
                             </a>

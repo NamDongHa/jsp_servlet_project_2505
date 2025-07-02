@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FeePolicyDTO {
     private int no;           // 요금제 개수
+    private String carType;
     private String timeType; // "주간" 또는 "야간"
     private int baseTime;        // 기본 시간 (분 단위)
     private int baseFee;         // 기본 요금

@@ -20,6 +20,7 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                         <tr>
+                            <th>주간/야간</th>
                             <th>기본시간 (분)</th>
                             <th>기본요금 (원)</th>
                             <th>단위시간 (분)</th>
@@ -34,6 +35,7 @@
                             <c:when test="${not empty feePolicyList}">
                                 <c:forEach var="policy" items="${feePolicyList}">
                                     <tr>
+                                        <td>${policy.carType}</td>
                                         <td>${policy.baseTime}</td>
                                         <td>${policy.baseFee}</td>
                                         <td>${policy.unitTime}</td>

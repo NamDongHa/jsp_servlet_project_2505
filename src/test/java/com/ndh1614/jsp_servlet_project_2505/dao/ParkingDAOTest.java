@@ -1,8 +1,12 @@
 package com.ndh1614.jsp_servlet_project_2505.dao;
 
+import com.ndh1614.jsp_servlet_project_2505.domain.FeePolicyVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.ParkingStatusVO;
+import com.ndh1614.jsp_servlet_project_2505.domain.ParkingVO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,5 +41,10 @@ class ParkingDAOTest {
     @Test
     void allCarIn() {
         log.info(parkingDAO.selectAllCurrentParkingStatus());
+    }
+    @Test
+    void selectLongParking() {
+        List<ParkingStatusVO> parkingVOS = parkingDAO.selectLongTermParkingStatus();
+        parkingVOS.forEach(System.out::println);
     }
 }

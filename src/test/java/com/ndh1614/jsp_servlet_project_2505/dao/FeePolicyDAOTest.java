@@ -29,7 +29,7 @@ class FeePolicyDAOTest {
                 .discountDisabled(4)
                 .discountCompact(5)
                 .build();
-        FeePolicyDAO.insertPolicy(feePolicyVO);
+        feePolicyDAO.insertPolicy(feePolicyVO);
         log.info(feePolicyVO);
     }
 }

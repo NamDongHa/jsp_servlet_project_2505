@@ -37,8 +37,8 @@ public class FeePolicyDAO {
     }
 
     public boolean insertPolicy(FeePolicyVO feePolicyVO) {
-        String sql = "INSERT INTO feepolicy (timeType, baseTime, baseFee, unitTime, unitFee, dailyMaxFee, discountDisabled, discountCompact) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO feepolicy (timeType, baseTime, baseFee, unitTime, unitFee, dailyMaxFee, discountDisabled, discountCompact, carType) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement ps = connection.prepareStatement(sql);
@@ -50,6 +50,7 @@ public class FeePolicyDAO {
             ps.setInt(6, feePolicyVO.getDailyMaxFee());
             ps.setDouble(7, feePolicyVO.getDiscountDisabled());
             ps.setDouble(8, feePolicyVO.getDiscountCompact());
+            ps.setString(9, feePolicyVO.getCarType());
             ps.execute();
             return true;
         } catch (SQLException e) {

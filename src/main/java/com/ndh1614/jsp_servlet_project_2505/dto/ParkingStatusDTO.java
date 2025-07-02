@@ -14,4 +14,5 @@ import lombok.NoArgsConstructor;
 public class ParkingStatusDTO {
     private ParkingDTO parkingDTO;
     private MemberDTO memberDTO;
+    private int parkingMinute;
 }

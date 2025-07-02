@@ -9,8 +9,11 @@ import com.ndh1614.jsp_servlet_project_2505.dto.ParkingDTO;
 import com.ndh1614.jsp_servlet_project_2505.dto.ParkingStatusDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 import java.lang.reflect.Type;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,4 +67,33 @@ public enum ParkingService {
     public List<ParkingStatusVO> selectAllParkingStatus() {
         return parkingDAO.selectAllCurrentParkingStatus();
     }
+    // 장기 주차 차량 리스트 조회
+    public List<ParkingStatusDTO> getLongTermParkingList() {
+        List<ParkingStatusVO> voList = parkingDAO.selectLongTermParkingStatus();
+        List<ParkingStatusDTO> dtoList = new ArrayList<>();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        for (ParkingStatusVO vo : voList) {
+            LocalDateTime carInTime = vo.getParkingVO().getCarInTime();
+
+            ParkingDTO parkingDTO = ParkingDTO.builder()
+                    .carId(vo.getParkingVO().getCarId())
+                    .carInTime(carInTime.format(formatter)) // 문자열로 변환
+                    .build();
+
+            MemberDTO memberDTO = modelMapper.map(vo.getMemberVO(), MemberDTO.class);
+
+            long minutes = Duration.between(carInTime, LocalDateTime.now()).toMinutes();
+
+            dtoList.add(ParkingStatusDTO.builder()
+                    .parkingDTO(parkingDTO)
+                    .memberDTO(memberDTO)
+                    .parkingMinute((int) minutes)
+                    .build());
+        }
+
+        return dtoList;
+    }
+
 }
