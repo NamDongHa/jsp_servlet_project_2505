@@ -1,0 +1,30 @@
+create table outTime
+(
+    carId      varchar(50) not null,
+    carOutTime dateTime default current_time primary key,
+    parkingFee int
+);
+
+create table feepolicy
+(
+    timeType         varchar(50) primary key,
+    baseTime         int,
+    baseFee          int,
+    unitTime         int,
+    unitFee          int,
+    dailyMaxFee      int,
+    discountDisabled double,
+    discountCompact  double
+
+);
+
+CREATE TABLE member
+(
+    carId    VARCHAR(50) PRIMARY KEY,
+    name     VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    phone    VARCHAR(50) NOT NULL,
+    type     VARCHAR(50) NOT NULL,
+    monthPay BOOLEAN,
+    CONSTRAINT chk_type CHECK (type IN ('일반', '장애인', '경차'))
+);
