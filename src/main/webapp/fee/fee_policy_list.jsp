@@ -35,7 +35,7 @@
                             <c:when test="${not empty feePolicyList}">
                                 <c:forEach var="policy" items="${feePolicyList}">
                                     <tr>
-                                        <td>${policy.carType}</td>
+                                        <td>${policy.timeType}</td>
                                         <td>${policy.baseTime}</td>
                                         <td>${policy.baseFee}</td>
                                         <td>${policy.unitTime}</td>

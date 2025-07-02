@@ -53,7 +53,6 @@ public enum ParkingService {
 
     // 주차 등록
     public void addCar(String carId) {
-
         parkingDAO.insertCar(carId);
     }
 
