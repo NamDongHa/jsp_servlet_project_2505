@@ -63,7 +63,6 @@
                             <td><%= member.getType() %></td>
                             <td><%= member.isMonthPay() %></td>
                             <td>
-                                <a href="MemberEditServlet?id=<%= member.getCarId() %>" class="btn btn-sm btn-info">수정</a>
                                 <a href="<%= request.getContextPath() %>/memberDelete?id=<%= member.getCarId() %>"
                                    class="btn btn-sm btn-danger"
                                    onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
