@@ -24,7 +24,7 @@ public enum MemberService {
     public MemberDTO getMember(String carId){
         log.info("getMember()");
         log.info("memberId: " + carId);
-        MemberVO memberVO = memberDAO.selectMember(carId);
+        MemberVO memberVO = memberDAO.selectMemberById(carId);
         MemberDTO memberDTO = null;
         if (memberVO != null) {
             memberDTO = modelMapper.map(memberVO, MemberDTO.class);
