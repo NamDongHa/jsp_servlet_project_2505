@@ -102,13 +102,7 @@
                     </a>
                     <ul class="nav nav-treeview pl-3">
                         <li class="nav-item">
-                            <a href="../pages/memberRegister.jsp" class="nav-link">
-                                <i class="fas fa-user-plus nav-icon"></i>
-                                <p>월정액 회원 등록</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../pages/monthlyMemberList.jsp" class="nav-link">
+                            <a href="../pages/memberList.jsp" class="nav-link">
                                 <i class="fas fa-list nav-icon"></i>
                                 <p>월정액 회원 목록</p>
                             </a>

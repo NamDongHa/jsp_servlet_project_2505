@@ -153,5 +153,15 @@ public class MemberDAO {
         }
         return members;
     }
-
+    public void deleteMember(String carId) {
+        String sql = "DELETE FROM member WHERE carId = ?";
+        try {
+            @Cleanup Connection con = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, carId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
