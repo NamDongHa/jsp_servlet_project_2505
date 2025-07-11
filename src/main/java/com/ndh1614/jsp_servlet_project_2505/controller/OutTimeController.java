@@ -3,6 +3,7 @@ package com.ndh1614.jsp_servlet_project_2505.controller;
 import com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO;
 import com.ndh1614.jsp_servlet_project_2505.domain.AdminVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
+import com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO;
 import com.ndh1614.jsp_servlet_project_2505.dto.ParkingStatusDTO;
 import com.ndh1614.jsp_servlet_project_2505.service.OutTimeService;
 import com.ndh1614.jsp_servlet_project_2505.service.ParkingService;
@@ -26,7 +27,6 @@ public class OutTimeController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("CarOutServlet - doPost");
 
-        MemberDAO memberDAO = MemberDAO.getInstance();
         // 로그인 여부 확인
         HttpSession session = req.getSession(false);
         if (session == null || session.getAttribute("isAuth") == null) {
@@ -48,7 +48,7 @@ public class OutTimeController extends HttpServlet {
            return;
        }
             // 로그인된 회원 정보에서 차량번호 가져오기
-        MemberVO loginUser = (MemberVO) session.getAttribute("member");
+        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
         String sessionCarId = loginUser.getCarId();  // 또는 loginUser.getId(), loginUser.getCarNumber() 등 실제 필드명에 맞춰 수정
 
         // 1. 로그인한 사용자 차량인지 확인

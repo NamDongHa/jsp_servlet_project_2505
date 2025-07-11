@@ -1,13 +1,13 @@
 package com.ndh1614.jsp_servlet_project_2505.controller;
 
-import com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO;
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
+import com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO;
+import com.ndh1614.jsp_servlet_project_2505.service.MemberService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class RegisterController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
           req.setCharacterEncoding("UTF-8");
 
-  MemberVO memberVO = MemberVO.builder()
+  MemberDTO memberDTO = MemberDTO.builder()
           .carId(req.getParameter("carId"))
           .name(req.getParameter("name"))
           .type(req.getParameter("carType"))
@@ -26,9 +26,8 @@ public class RegisterController extends HttpServlet {
           .password(req.getParameter("password"))
           .build();
 
-
-  MemberDAO dao = MemberDAO.getInstance();
-  dao.insertMember(memberVO);
+  MemberService memberService = MemberService.INSTANCE;
+  memberService.register(memberDTO);
 
   resp.sendRedirect("../main/main.jsp");
     }

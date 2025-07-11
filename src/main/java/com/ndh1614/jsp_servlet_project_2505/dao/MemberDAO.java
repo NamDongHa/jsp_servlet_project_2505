@@ -194,4 +194,21 @@ public class MemberDAO {
             throw new RuntimeException(e);
         }
     }
+    public void updateMemberInList(MemberVO member , String oldCarId) {
+        String sql = "update member set carId = ?, name = ? , phone = ? , " +
+                "type = ? , monthPay = ? where carId = ?";
+        try {
+            @Cleanup Connection con = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, member.getCarId());
+            preparedStatement.setString(2, member.getName());
+            preparedStatement.setString(3, member.getPhone());
+            preparedStatement.setString(4, member.getType());
+            preparedStatement.setBoolean(5, member.isMonthPay());
+            preparedStatement.setString(6, oldCarId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

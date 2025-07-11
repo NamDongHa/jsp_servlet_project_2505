@@ -30,7 +30,7 @@
         </form>
 
         <div class="container-fluid">
-            <h2><i class="fas fa-list"></i> 📄 회원 목록</h2>
+            <h2><i class="fas fa-list"></i> 📄 월정액 회원 목록</h2>
         </div>
     </section>
     <section class="content">
@@ -55,21 +55,30 @@
                         <%
                             for (MemberVO member : memberList) {
                         %>
-                        <tr>
-                            <td><%= member.getCarId() %></td>
-                            <td><%= member.getName() %></td>
-                            <td><%= member.getPhone() %></td>
-                            <td><%= member.getType() %></td>
-                            <td><%= member.isMonthPay() %></td>
-                            <td>
-                                <a href="<%= request.getContextPath() %>/memberDelete?id=<%= member.getCarId() %>"
-                                   class="btn btn-sm btn-danger"
-                                   onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                                <a href="<%= request.getContextPath() %>/member/memberModify.jsp?id=<%= member.getCarId() %>"
-                                   class="btn btn-sm btn-primary">수정</a>
-                            </td>
+                        <!-- 예시 데이터 -->
+                        <form method="post" action="<%= request.getContextPath() %>/memberModify">
+                            <input type="hidden" name="oldCarId" value="<%= member.getCarId() %>">
+                            <input type="hidden" name="password" value="<%= member.getPassword() %>" />
+                            <tr>
+                                <td><input type="text" name="carId" value="<%= member.getCarId() %>" class="form-control" /></td>
+                                <td><input type="text" name="name" value="<%= member.getName() %>" class="form-control" /></td>
+                                <td><input type="text" name="phone" value="<%= member.getPhone() %>" class="form-control" /></td>
+                                <td>
+                                    <select name="type" class="form-control">
+                                        <option value="일반" <%= member.getType().equals("일반") ? "selected" : "" %>>일반</option>
+                                        <option value="경차" <%= member.getType().equals("경차") ? "selected" : "" %>>경차</option>
+                                        <option value="장애인" <%= member.getType().equals("장애인") ? "selected" : "" %>>장애인</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="monthPay" value="true" <%= member.isMonthPay() ? "checked" : "" %> />
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-sm btn-primary">수정</button>
+                                </td>
+                            </tr>
+                        </form>
 
-                        </tr>
                         <!-- 실제 회원 데이터 반복 출력 필요 -->
                         <%
                             }

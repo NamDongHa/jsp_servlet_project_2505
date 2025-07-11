@@ -23,6 +23,6 @@ class MemberServiceTest {
         String type = "장애인";
         boolean monthPay = true;
 
-        log.info(memberService.isRightMember(carId, name, phone, type, monthPay));
+        log.info(memberService.isMatching(carId, name, phone, type, monthPay));
     }
 }

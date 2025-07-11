@@ -2,6 +2,7 @@ package com.ndh1614.jsp_servlet_project_2505.controller;
 
 import com.ndh1614.jsp_servlet_project_2505.domain.AdminVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
+import com.ndh1614.jsp_servlet_project_2505.dto.AdminDTO;
 import com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO;
 import com.ndh1614.jsp_servlet_project_2505.dto.ParkingStatusDTO;
 import com.ndh1614.jsp_servlet_project_2505.service.MemberService;
@@ -34,8 +35,8 @@ public class CarInController extends HttpServlet {
             return;
         }
 
-        MemberVO memberVO = (MemberVO) session.getAttribute("member");
-        AdminVO adminVO = (AdminVO) session.getAttribute("member2");
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+        AdminDTO adminDTO = (AdminDTO) session.getAttribute("member2");
         // 로그인된 회원 정보 가져오기
         // 입력값 받기
         String carId = req.getParameter("carId");
@@ -54,7 +55,7 @@ public class CarInController extends HttpServlet {
             }
 
             // 2. 회원 정보 일치 여부 확인
-            boolean isMatching = memberService.isRightMember(
+            boolean isMatching = memberService.isMatching(
                     carId,
                     name,
                     phone,
@@ -85,7 +86,7 @@ public class CarInController extends HttpServlet {
             return;
         }
         log.info("입차 요청 차량번호: {}", carId);
-        if(!memberVO.getCarId().equals(carId)) {
+        if(!memberDTO.getCarId().equals(carId)) {
             req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
             return;
         }
