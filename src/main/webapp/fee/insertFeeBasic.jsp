@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="timeType" class="col-sm-2 col-form-label">시간대</label>
+                            <label for="timeType" class="col-sm-2 col-form-label">차종</label>
                             <div class="col-sm-10">
                                 <select class="form-control" id="carType" name="carType" required>
                                     <option value="일반">일반</option>
