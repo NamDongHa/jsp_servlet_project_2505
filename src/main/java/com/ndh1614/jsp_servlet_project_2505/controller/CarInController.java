@@ -1,6 +1,7 @@
 package com.ndh1614.jsp_servlet_project_2505.controller;
 
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
+import com.ndh1614.jsp_servlet_project_2505.dto.AdminDTO;
 import com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO;
 import com.ndh1614.jsp_servlet_project_2505.dto.ParkingStatusDTO;
 import com.ndh1614.jsp_servlet_project_2505.service.MemberService;
@@ -43,29 +44,23 @@ public class CarInController extends HttpServlet {
         String phone = req.getParameter("phone");
         String type = req.getParameter("type");
         boolean monthPay = req.getParameter("monthPay") != null;
-        if(session.getAttribute("isAdmin") != null) {
 
 
-        // 1. 주차장 만차 여부 확인
-        int currentCount = parkingService.currentCar();
-        if (currentCount >= 10) {
-            req.setAttribute("errorMessage", "주차장에 자리가 없습니다."); // 여기
-            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
-            return;
-        }
+            // 1. 주차장 만차 여부 확인
+            int currentCount = parkingService.currentCar();
+            if (currentCount >= 10) {
+                req.setAttribute("errorMessage", "주차장에 자리가 없습니다."); // 여기
+                req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+                return;
+            }
 
-        log.info("출차 요청 차량번호: {}", carId);
+            log.info("출차 요청 차량번호: {}", carId);
 
-        // 로그인된 회원 정보에서 차량번호 가져오기
-        MemberVO loginUser = (MemberVO) session.getAttribute("member");
-        String sessionCarId = loginUser.getCarId();  // 또는 loginUser.getId(), loginUser.getCarNumber() 등 실제 필드명에 맞춰 수정
+            // 로그인된 회원 정보에서 차량번호 가져오기
+//            MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
+//            String sessionCarId = loginUser.getCarId();  // 또는 loginUser.getId(), loginUser.getCarNumber() 등 실제 필드명에 맞춰 수정
 
-        // 1. 로그인한 사용자 차량인지 확인
-        if (!carId.equals(sessionCarId)) {
-            req.setAttribute("errorMessage", "차량번호가 일치하지 않습니다. 다시 입력해주세요."); // 여기
-            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
-            return;
-        }
+
 
             // 2. 회원 정보 일치 여부 확인
             boolean isMatching = memberService.isMatching(
@@ -76,18 +71,18 @@ public class CarInController extends HttpServlet {
                     monthPay
             );
 
-        if (!isMatching) {
-            req.setAttribute("errorMessage", "차량 정보가 일치하지 않습니다."); // 여기
-            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
-            return;
-        }
+            if (!isMatching) {
+                req.setAttribute("errorMessage", "차량 정보가 일치하지 않습니다."); // 여기
+                req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+                return;
+            }
 
-        // 💡 이미 입차된 차량인지 확인
-        if (parkingService.carInAlready(carId)) {
-            req.setAttribute("errorMessage", "이미 입차된 차량입니다."); // 여기
-            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
-            return;
-        }
+            // 💡 이미 입차된 차량인지 확인
+            if (parkingService.carInAlready(carId)) {
+                req.setAttribute("errorMessage", "이미 입차된 차량입니다."); // 여기
+                req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+                return;
+            }
 
         if(session.getAttribute("isAdmin") != null) {
             // 3. 입차 처리 및 상태 조회
@@ -101,6 +96,12 @@ public class CarInController extends HttpServlet {
             req.getRequestDispatcher("/pages/parkingStatus.jsp").forward(req, resp);
             return;
         }
+        // 1. 로그인한 사용자 차량인지 확인
+        if (!carId.equals(memberDTO.getCarId())) {
+            req.setAttribute("errorMessage", "차량번호가 일치하지 않습니다. 다시 입력해주세요."); // 여기
+            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+            return;
+        }
         // 3. 입차 처리 및 상태 조회
         parkingService.addCar(carId);  // 입차 처리
         ParkingStatusDTO parkingStatusDTO = parkingService.getParkingStatus(carId); // 입차된 차량의 상태
@@ -110,9 +111,9 @@ public class CarInController extends HttpServlet {
 
         // 4. 입차 결과 페이지로 이동
         req.getRequestDispatcher("/pages/parkingStatus.jsp").forward(req, resp);
+
     }
 
-}
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // POST 요청만 처리하도록 제한

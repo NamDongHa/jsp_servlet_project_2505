@@ -28,6 +28,7 @@ public class InsertPolicyController extends HttpServlet {
                     .dailyMaxFee(Integer.parseInt(req.getParameter("dailyMaxFee")))
                     .discountDisabled(Double.parseDouble(req.getParameter("discountDisabled")))
                     .discountCompact(Double.parseDouble(req.getParameter("discountCompact")))
+                    .carType(req.getParameter("carType"))
                     .build();
 
             boolean success = feePolicyService.registerPolicy(feePolicyVO);
@@ -35,12 +36,12 @@ public class InsertPolicyController extends HttpServlet {
             if (success) {
                 resp.sendRedirect(req.getContextPath() + "/fee/fee_policy_list");
             } else {
-                resp.sendRedirect(req.getContextPath() + "/fee/form.jsp?error=1");
+                resp.sendRedirect(req.getContextPath() + "/fee/insertFeeBasic.jsp");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            resp.sendRedirect(req.getContextPath() + "/fee/form.jsp?error=1");
+            resp.sendRedirect(req.getContextPath() + "/fee/insertFeeBasic.jsp");
         }
     }
 }

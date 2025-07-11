@@ -7,10 +7,13 @@ import com.ndh1614.jsp_servlet_project_2505.domain.CheckOutVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.FeePolicyVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.ParkingStatusVO;
 import com.ndh1614.jsp_servlet_project_2505.dto.CheckOutDTO;
+import com.ndh1614.jsp_servlet_project_2505.util.ParkingFeeCalculator;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 
+@Log4j2
 public enum CheckOutService {
     INSTANCE;
 
@@ -39,19 +42,24 @@ public enum CheckOutService {
     }
 
 
-    // 출차 시 요금 계산 및 업데이트
     public int processCheckout(String carId) {
         ParkingStatusVO vo = parkingDAO.selectNowCar(carId);
         if (vo == null || vo.getMemberVO() == null) {
             throw new IllegalArgumentException("차량 정보가 존재하지 않거나 회원 정보가 없습니다.");
         }
 
-        FeePolicyVO policy = feePolicyDAO.selectPolicyByCarType(vo.getMemberVO().getType());
+        String carType = vo.getMemberVO().getType();
+        FeePolicyVO policy = feePolicyDAO.selectPolicyByCarType(carType);
+        log.info("조회된 요금 정책: {}", policy);
+
+        if (policy == null) {
+            throw new RuntimeException("요금 정책을 찾을 수 없습니다. carType=" + carType);
+        }
 
         return checkOutDAO.calculateAndUpdateFee(
                 carId,
                 policy,
-                vo.getMemberVO().getType(),
+                carType,
                 vo.getMemberVO().isMonthPay()
         );
     }

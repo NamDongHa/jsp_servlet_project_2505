@@ -28,6 +28,7 @@ class FeePolicyDAOTest {
                 .dailyMaxFee(2000)
                 .discountDisabled(4)
                 .discountCompact(5)
+                .carType("일반")
                 .build();
         feePolicyDAO.insertPolicy(feePolicyVO);
         log.info(feePolicyVO);

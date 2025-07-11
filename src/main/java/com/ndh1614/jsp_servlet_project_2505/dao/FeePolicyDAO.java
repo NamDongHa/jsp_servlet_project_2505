@@ -27,6 +27,7 @@ public class FeePolicyDAO {
                         .dailyMaxFee(rs.getInt("dailyMaxFee"))
                         .discountDisabled(rs.getDouble("discountDisabled"))
                         .discountCompact(rs.getDouble("discountCompact"))
+                        .carType(rs.getString("carType"))
                         .build();
                 policies.add(policy);
             }
