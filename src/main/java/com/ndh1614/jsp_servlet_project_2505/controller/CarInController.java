@@ -44,37 +44,35 @@ public class CarInController extends HttpServlet {
         String phone = req.getParameter("phone");
         String type = req.getParameter("type");
         boolean monthPay = req.getParameter("monthPay") != null;
-        if(session.getAttribute("isAdmin") != null) {
 
 
-            // 1. 주차장 만차 여부 확인
-            int currentCount = parkingService.currentCar();
-            if (currentCount >= 10) {
-                req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
-                return;
-            }
+        // 1. 주차장 만차 여부 확인
+        int currentCount = parkingService.currentCar();
+        if (currentCount >= 10) {
+            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+            return;
+        }
 
-            // 2. 회원 정보 일치 여부 확인
-            boolean isMatching = memberService.isMatching(
-                    carId,
-                    name,
-                    phone,
-                    type,
-                    monthPay
-            );
+        // 2. 회원 정보 일치 여부 확인
+        boolean isMatching = memberService.isMatching(
+                carId,
+                name,
+                phone,
+                type,
+                monthPay
+        );
 
-            if (!isMatching) {
-                req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
-                return;
-            }
+        if (!isMatching) {
+            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+            return;
+        }
 
-            // 💡 이미 입차된 차량인지 확인
-            if (parkingService.carInAlready(carId)) {
-                req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
-                return;
-            }
-
-            // 3. 입차 처리 및 상태 조회
+        // 💡 이미 입차된 차량인지 확인
+        if (parkingService.carInAlready(carId)) {
+            req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
+            return;
+        }
+        if (session.getAttribute("isAdmin") != null) {
             parkingService.addCar(carId);  // 입차 처리
             ParkingStatusDTO parkingStatusDTO = parkingService.getParkingStatus(carId); // 입차된 차량의 상태
 
@@ -83,14 +81,12 @@ public class CarInController extends HttpServlet {
 
             // 4. 입차 결과 페이지로 이동
             req.getRequestDispatcher("/pages/parkingStatus.jsp").forward(req, resp);
-            return;
         }
         log.info("입차 요청 차량번호: {}", carId);
-        if(!memberDTO.getCarId().equals(carId)) {
+        if (!memberDTO.getCarId().equals(carId)) {
             req.getRequestDispatcher("/pages/carIn.jsp").forward(req, resp);
             return;
         }
-
         // 3. 입차 처리 및 상태 조회
         parkingService.addCar(carId);  // 입차 처리
         ParkingStatusDTO parkingStatusDTO = parkingService.getParkingStatus(carId); // 입차된 차량의 상태
@@ -100,6 +96,9 @@ public class CarInController extends HttpServlet {
 
         // 4. 입차 결과 페이지로 이동
         req.getRequestDispatcher("/pages/parkingStatus.jsp").forward(req, resp);
+
+
+
     }
 
     @Override

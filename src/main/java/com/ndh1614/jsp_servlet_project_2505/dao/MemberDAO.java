@@ -52,13 +52,12 @@ public class MemberDAO {
             if (resultSet.next()) {
                 return MemberVO.builder()
                         .carId(resultSet.getString("carId"))
-                        .password(resultSet.getString(2))
-                        .name(resultSet.getString(3))
+                        .name(resultSet.getString(2))
+                        .password(resultSet.getString(3))
                         .phone(resultSet.getString(4))
                         .type(resultSet.getString(5))
                         .monthPay(resultSet.getBoolean(6))
                         .build();
-
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
