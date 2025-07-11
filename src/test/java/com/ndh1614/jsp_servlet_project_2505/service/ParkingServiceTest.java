@@ -49,7 +49,7 @@ class ParkingServiceTest {
 
     @Test
     void removeCarTest() {
-        parkingService.removeCar("carId");
+        parkingService.removeCar("456");
     }
 
     @Test

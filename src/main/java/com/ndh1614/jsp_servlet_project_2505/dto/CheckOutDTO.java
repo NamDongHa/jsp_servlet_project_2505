@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 @NoArgsConstructor
-public class OutTimeDTO {
+public class CheckOutDTO {
     private String carId; // 차량 번호
     private LocalDateTime carOutTime; // 출차 시간
     private int parkingFee; // 요금

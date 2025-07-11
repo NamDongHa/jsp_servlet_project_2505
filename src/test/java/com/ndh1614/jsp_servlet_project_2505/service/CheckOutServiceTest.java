@@ -3,19 +3,17 @@ package com.ndh1614.jsp_servlet_project_2505.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class OutTimeServiceTest {
-    OutTimeService outTimeService;
+class CheckOutServiceTest {
+    CheckOutService checkOutService;
 
     @BeforeEach
     void setUp() {
-        outTimeService = OutTimeService.INSTANCE;
+        checkOutService = CheckOutService.INSTANCE;
     }
 
     @Test
     void addOutCarTest() {
         String carId = "3333";
-        outTimeService.addOutCar(carId);
+        checkOutService.addOutCar(carId);
     }
 }

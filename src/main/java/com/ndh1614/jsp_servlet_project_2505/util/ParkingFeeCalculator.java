@@ -1,5 +1,4 @@
 package com.ndh1614.jsp_servlet_project_2505.util;
-
 import com.ndh1614.jsp_servlet_project_2505.domain.FeePolicyVO;
 
 import java.time.Duration;
@@ -27,7 +26,7 @@ public class ParkingFeeCalculator {
         if (totalMinutes > policy.getBaseTime()) {
             long extraMinutes = totalMinutes - policy.getBaseTime();
             long extraUnits = (long) Math.ceil((double) extraMinutes / policy.getUnitTime());
-            totalFee += extraUnits * policy.getUnitFee();
+            totalFee += (int) (extraUnits * policy.getUnitFee());
         }
 
         // 일일 최대 요금 초과 시 제한

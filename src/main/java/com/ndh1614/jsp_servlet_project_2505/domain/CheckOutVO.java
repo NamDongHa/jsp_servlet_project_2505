@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OutTimeVO {
+public class CheckOutVO {
     private String carId; // 차량 번호
     private LocalDateTime carOutTime; // 출차 시간
     private int parkingFee; // 요금

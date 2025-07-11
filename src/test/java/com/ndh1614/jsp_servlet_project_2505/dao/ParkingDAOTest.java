@@ -61,4 +61,8 @@ class ParkingDAOTest {
     void countCarNum() {
         log.info(parkingDAO.countCarNum());
     }
+    @Test
+    void deleteCar() {
+        parkingDAO.deleteCar("123");
+    }
 }

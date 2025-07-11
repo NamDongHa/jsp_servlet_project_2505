@@ -57,4 +57,32 @@ public class FeePolicyDAO {
             throw new RuntimeException(e);
         }
     }
+    public FeePolicyVO selectPolicyByCarType(String carType) {
+        String sql = "SELECT * FROM feepolicy WHERE carType = ? LIMIT 1";
+
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, carType);
+            @Cleanup ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return FeePolicyVO.builder()
+                        .no(rs.getInt("no"))
+                        .timeType(rs.getString("timeType"))
+                        .baseTime(rs.getInt("baseTime"))
+                        .baseFee(rs.getInt("baseFee"))
+                        .unitTime(rs.getInt("unitTime"))
+                        .unitFee(rs.getInt("unitFee"))
+                        .dailyMaxFee(rs.getInt("dailyMaxFee"))
+                        .discountDisabled(rs.getDouble("discountDisabled"))
+                        .discountCompact(rs.getDouble("discountCompact"))
+                        .carType(rs.getString("carType"))
+                        .build();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

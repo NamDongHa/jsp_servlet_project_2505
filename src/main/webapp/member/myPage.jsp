@@ -6,9 +6,13 @@
 <%@ page import="java.util.Objects" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.MemberVO" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.AdminVO" %>
+<%@ page import="com.ndh1614.jsp_servlet_project_2505.dao.AdminDAO" %>
 <%
-    MemberVO member = (MemberVO) session.getAttribute("member");
-    AdminVO member2 = (AdminVO) session.getAttribute("member2");
+
+   AdminVO member2 = (AdminVO) session.getAttribute("member2");
+
+   MemberVO member = (MemberVO) session.getAttribute("member");
+
 %>
 
 <div class="content-wrapper">
