@@ -19,6 +19,6 @@ public class FeePolicyDTO {
     private int unitFee;         // 추가 요금
     private int dailyMaxFee;     // 일일 최대 요금
 
-    private int discountDisabled;  // 장애인 할인율 (예: 50)
-    private int discountCompact;   // 경차 할인율 (예: 30)
+    private int discount;  // 할인율 (예: 50)
+
 }

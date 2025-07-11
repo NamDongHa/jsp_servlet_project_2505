@@ -26,8 +26,7 @@ public class InsertPolicyController extends HttpServlet {
                     .unitTime(Integer.parseInt(req.getParameter("unitTime")))
                     .unitFee(Integer.parseInt(req.getParameter("unitFee")))
                     .dailyMaxFee(Integer.parseInt(req.getParameter("dailyMaxFee")))
-                    .discountDisabled(Double.parseDouble(req.getParameter("discountDisabled")))
-                    .discountCompact(Double.parseDouble(req.getParameter("discountCompact")))
+                    .discount(Double.parseDouble(req.getParameter("discount")))
                     .carType(req.getParameter("carType"))
                     .build();
 

@@ -34,9 +34,9 @@ public class ParkingFeeCalculator {
 
         // 할인 적용
         if ("장애인".equals(carType)) {
-            totalFee = (int) (totalFee * (100 - policy.getDiscountDisabled()) / 100);
+            totalFee = (int) (totalFee * (100 - policy.getDiscount()) / 100);
         } else if ("경차".equals(carType)) {
-            totalFee = (int) (totalFee * (100 - policy.getDiscountCompact()) / 100);
+            totalFee = (int) (totalFee * (100 - policy.getDiscount()) / 100);
         }
 
         return totalFee;

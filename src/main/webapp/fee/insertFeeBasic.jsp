@@ -70,20 +70,22 @@
 
                         <!-- 장애인 할인율 -->
                         <div class="form-group row">
-                            <label for="discountDisabled" class="col-sm-2 col-form-label">장애인 할인율 (%)</label>
+                            <label for="discount" class="col-sm-2 col-form-label">할인율 (%)</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="discountDisabled" name="discountDisabled" placeholder="장애인 할인율 입력" required>
+                                <input type="number" class="form-control" id="discount" name="discount" placeholder="할인율 입력" required>
                             </div>
                         </div>
 
-                        <!-- 경차 할인율 -->
                         <div class="form-group row">
-                            <label for="discountCompact" class="col-sm-2 col-form-label">경차 할인율 (%)</label>
+                            <label for="timeType" class="col-sm-2 col-form-label">시간대</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="discountCompact" name="discountCompact" placeholder="경차 할인율 입력" required>
+                                <select class="form-control" id="carType" name="carType" required>
+                                    <option value="일반">일반</option>
+                                    <option value="경차">경차</option>
+                                    <option value="장애인">장애인</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-success float-right">등록</button>

@@ -26,8 +26,7 @@
                             <th>단위시간 (분)</th>
                             <th>단위요금 (원)</th>
                             <th>일일최대요금 (원)</th>
-                            <th>장애인 할인 (%)</th>
-                            <th>경차 할인 (%)</th>
+                            <th>할인 (%)</th>
                             <th>차종</th>
                         </tr>
                         </thead>
@@ -42,8 +41,7 @@
                                         <td>${policy.unitTime}</td>
                                         <td>${policy.unitFee}</td>
                                         <td>${policy.dailyMaxFee}</td>
-                                        <td>${policy.discountDisabled}</td>
-                                        <td>${policy.discountCompact}</td>
+                                        <td>${policy.discount}</td>
                                         <td>${policy.carType}</td>
                                     </tr>
                                 </c:forEach>

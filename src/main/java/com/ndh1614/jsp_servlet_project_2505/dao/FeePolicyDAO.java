@@ -25,8 +25,7 @@ public class FeePolicyDAO {
                         .unitTime(rs.getInt("unitTime"))
                         .unitFee(rs.getInt("unitFee"))
                         .dailyMaxFee(rs.getInt("dailyMaxFee"))
-                        .discountDisabled(rs.getDouble("discountDisabled"))
-                        .discountCompact(rs.getDouble("discountCompact"))
+                        .discount(rs.getDouble("discount"))
                         .carType(rs.getString("carType"))
                         .build();
                 policies.add(policy);
@@ -38,8 +37,8 @@ public class FeePolicyDAO {
     }
 
     public boolean insertPolicy(FeePolicyVO feePolicyVO) {
-        String sql = "INSERT INTO feepolicy (timeType, baseTime, baseFee, unitTime, unitFee, dailyMaxFee, discountDisabled, discountCompact, carType) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO feepolicy (timeType, baseTime, baseFee, unitTime, unitFee, dailyMaxFee, discount, carType) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement ps = connection.prepareStatement(sql);
@@ -49,9 +48,8 @@ public class FeePolicyDAO {
             ps.setInt(4, feePolicyVO.getUnitTime());
             ps.setInt(5, feePolicyVO.getUnitFee());
             ps.setInt(6, feePolicyVO.getDailyMaxFee());
-            ps.setDouble(7, feePolicyVO.getDiscountDisabled());
-            ps.setDouble(8, feePolicyVO.getDiscountCompact());
-            ps.setString(9, feePolicyVO.getCarType());
+            ps.setDouble(7, feePolicyVO.getDiscount());
+            ps.setString(8, feePolicyVO.getCarType());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -76,8 +74,7 @@ public class FeePolicyDAO {
                         .unitTime(rs.getInt("unitTime"))
                         .unitFee(rs.getInt("unitFee"))
                         .dailyMaxFee(rs.getInt("dailyMaxFee"))
-                        .discountDisabled(rs.getDouble("discountDisabled"))
-                        .discountCompact(rs.getDouble("discountCompact"))
+                        .discount(rs.getDouble("discount"))
                         .carType(rs.getString("carType"))
                         .build();
             }
