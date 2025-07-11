@@ -81,6 +81,7 @@ public class CarInController extends HttpServlet {
 
             // 4. 입차 결과 페이지로 이동
             req.getRequestDispatcher("/pages/parkingStatus.jsp").forward(req, resp);
+            return;
         }
         log.info("입차 요청 차량번호: {}", carId);
         if (!memberDTO.getCarId().equals(carId)) {
