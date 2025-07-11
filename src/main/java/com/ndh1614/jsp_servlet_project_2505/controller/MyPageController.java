@@ -2,9 +2,11 @@ package com.ndh1614.jsp_servlet_project_2505.controller;
 
 
 import com.ndh1614.jsp_servlet_project_2505.dao.AdminDAO;
-import com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO;
 import com.ndh1614.jsp_servlet_project_2505.domain.AdminVO;
-import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
+import com.ndh1614.jsp_servlet_project_2505.dto.AdminDTO;
+import com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO;
+import com.ndh1614.jsp_servlet_project_2505.service.AdminService;
+import com.ndh1614.jsp_servlet_project_2505.service.MemberService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,13 +22,13 @@ public class MyPageController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         req.setCharacterEncoding("UTF-8");
-        MemberDAO memberDAO = MemberDAO.getInstance();
-        AdminDAO adminDAO = AdminDAO.getInstance();
-        MemberVO memberVO = (MemberVO) session.getAttribute("member");
-        AdminVO adminVO = (AdminVO) session.getAttribute("member2");
-        if (memberVO != null) {
-            String oldCarId = memberVO.getCarId();
-            memberVO = MemberVO.builder()
+        MemberService memberService = MemberService.INSTANCE;
+        AdminService adminService = AdminService.INSTANCE;
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+        AdminDTO adminDTO = (AdminDTO) session.getAttribute("member2");
+        if (memberDTO != null) {
+            String oldCarId = memberDTO.getCarId();
+            memberDTO = MemberDTO.builder()
                     .carId(req.getParameter("carId"))
                     .name(req.getParameter("name"))
                     .type(req.getParameter("type"))
@@ -34,17 +36,17 @@ public class MyPageController extends HttpServlet {
                     .monthPay(req.getParameter("monthPay") != null)
                     .password(req.getParameter("password"))
                     .build();
-            memberDAO.updateMember(memberVO, oldCarId);
-            session.setAttribute("member", memberVO);
+            memberService.update(memberDTO, oldCarId);
+            session.setAttribute("member", memberDTO);
         } else{
-            String oldAdminId = adminVO.getAdminId();
-            adminVO = AdminVO.builder()
+            String oldAdminId = adminDTO.getAdminId();
+            adminDTO = AdminDTO.builder()
                     .adminId(req.getParameter("carId"))
                     .name(req.getParameter("name"))
                     .password(req.getParameter("password"))
                     .build();
-        adminDAO.updateAdmin(adminVO, oldAdminId);
-        session.setAttribute("member2", adminVO);
+        adminService.updateAdmin(adminDTO, oldAdminId);
+        session.setAttribute("member2", adminDTO);
         }
         resp.sendRedirect("../main/main.jsp");
     }

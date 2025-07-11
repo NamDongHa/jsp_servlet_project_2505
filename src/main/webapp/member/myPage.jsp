@@ -4,15 +4,11 @@
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO" %>
 <%@ page import="com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO" %>
 <%@ page import="java.util.Objects" %>
-<%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.MemberVO" %>
-<%@ page import="com.ndh1614.jsp_servlet_project_2505.domain.AdminVO" %>
-<%@ page import="com.ndh1614.jsp_servlet_project_2505.dao.AdminDAO" %>
+<%@ page import="com.ndh1614.jsp_servlet_project_2505.dto.AdminDTO" %>
 <%
 
-   AdminVO member2 = (AdminVO) session.getAttribute("member2");
-
-   MemberVO member = (MemberVO) session.getAttribute("member");
-
+    MemberDTO member = (MemberDTO) session.getAttribute("member");
+    AdminDTO member2 = (AdminDTO) session.getAttribute("member2");
 %>
 
 <div class="content-wrapper">

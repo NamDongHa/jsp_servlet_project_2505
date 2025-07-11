@@ -34,6 +34,8 @@ public class CarInController extends HttpServlet {
             return;
         }
 
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+        AdminDTO adminDTO = (AdminDTO) session.getAttribute("member2");
         // 로그인된 회원 정보 가져오기
         // 입력값 받기
         String carId = req.getParameter("carId");
@@ -41,8 +43,7 @@ public class CarInController extends HttpServlet {
         String phone = req.getParameter("phone");
         String type = req.getParameter("type");
         boolean monthPay = req.getParameter("monthPay") != null;
-
-        log.info("입차 요청 차량번호: {}", carId);
+        if(session.getAttribute("isAdmin") != null) {
 
 
         // 1. 주차장 만차 여부 확인
@@ -66,15 +67,14 @@ public class CarInController extends HttpServlet {
             return;
         }
 
-
-        // 2. 회원 정보 일치 여부 확인
-        boolean isMatching = memberService.isRightMember(
-                carId,
-                name,
-                phone,
-                type,
-                monthPay
-        );
+            // 2. 회원 정보 일치 여부 확인
+            boolean isMatching = memberService.isMatching(
+                    carId,
+                    name,
+                    phone,
+                    type,
+                    monthPay
+            );
 
         if (!isMatching) {
             req.setAttribute("errorMessage", "차량 정보가 일치하지 않습니다."); // 여기
@@ -112,6 +112,7 @@ public class CarInController extends HttpServlet {
         req.getRequestDispatcher("/pages/parkingStatus.jsp").forward(req, resp);
     }
 
+}
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // POST 요청만 처리하도록 제한

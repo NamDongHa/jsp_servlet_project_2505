@@ -4,6 +4,10 @@ import com.ndh1614.jsp_servlet_project_2505.dao.AdminDAO;
 import com.ndh1614.jsp_servlet_project_2505.dao.MemberDAO;
 import com.ndh1614.jsp_servlet_project_2505.domain.AdminVO;
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
+import com.ndh1614.jsp_servlet_project_2505.dto.AdminDTO;
+import com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO;
+import com.ndh1614.jsp_servlet_project_2505.service.AdminService;
+import com.ndh1614.jsp_servlet_project_2505.service.MemberService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,11 +29,11 @@ public class LoginController extends HttpServlet {
         String carId = req.getParameter("carId");
         String password = req.getParameter("password");
         HttpSession session = req.getSession();
-        // DAO로 인증 시도
-        MemberDAO memberDAO = MemberDAO.getInstance();
-        AdminDAO adminDAO = AdminDAO.getInstance();
-        MemberVO member = memberDAO.selectMemberWithPasswd(carId, password);
-        AdminVO member2 = adminDAO.selectMemberWithPasswdInAdmin(carId, password);
+
+        MemberService memberService = MemberService.INSTANCE;
+        AdminService adminService = AdminService.INSTANCE;
+        MemberDTO member = memberService.login(carId, password);
+        AdminDTO member2 = adminService.login(carId, password);
         if (member != null) {
             // 인증 성공
             session.setAttribute("member", member);
