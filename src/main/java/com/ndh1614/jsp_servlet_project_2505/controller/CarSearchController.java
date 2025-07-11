@@ -1,6 +1,7 @@
 package com.ndh1614.jsp_servlet_project_2505.controller;
 
 import com.ndh1614.jsp_servlet_project_2505.domain.MemberVO;
+import com.ndh1614.jsp_servlet_project_2505.dto.MemberDTO;
 import com.ndh1614.jsp_servlet_project_2505.dto.ParkingStatusDTO;
 import com.ndh1614.jsp_servlet_project_2505.service.ParkingService;
 import jakarta.servlet.ServletException;
@@ -31,9 +32,21 @@ public class CarSearchController extends HttpServlet {
             alertAndRedirect(resp, "로그인 먼저 해주세요.", req.getContextPath() + "/member/login.jsp");
             return;
         }
+        if(session.getAttribute("isAdmin") != null) {
+            ParkingStatusDTO parkingStatusDTO = parkingService.getParkingStatus(carId);
 
+            if (parkingStatusDTO == null) {
+                alertAndRedirect(resp, "해당 차량의 주차 정보가 없습니다.",
+                        req.getContextPath() + "/pages/carSearch.jsp");
+                return;
+            }
+
+            req.setAttribute("parkingStatusDTO", parkingStatusDTO);
+            log.info(parkingStatusDTO);
+            req.getRequestDispatcher("/pages/carResult.jsp").forward(req, resp);
+        }
         // 로그인된 회원 정보에서 차량번호 가져오기
-        MemberVO loginUser = (MemberVO) session.getAttribute("member");
+        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
         String sessionCarId = loginUser.getCarId();
 
         // 1. 로그인한 사용자 차량인지 확인
